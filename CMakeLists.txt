@@ -4,7 +4,13 @@ project(workers-cards)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+set(SOURCE
+  src/worker.cpp
+  src/card.cpp)
+add_executable(${PROJECT_NAME} 
+  src/main.cpp
+  ${SOURCE}
+)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -20,6 +26,7 @@ enable_testing()
 
 add_executable(${PROJECT_NAME}-ut
     src/tests.cpp
+    ${SOURCE}
 )
 target_link_libraries(${PROJECT_NAME}-ut
 gtest_main
