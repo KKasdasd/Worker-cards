@@ -34,6 +34,10 @@ public:
         const std::string &state,
         Gender gender,
         std::shared_ptr<Card> cardPtr);
+
+    ~Worker();
+
+    // getters
     std::string getName() const;
     std::string getSurname() const;
     long int getIdNumber() const;
@@ -42,12 +46,13 @@ public:
     Gender getGender() const;
     std::shared_ptr<Card> getCard() const;
 
-    void setName(const std::string& name);
-    void setSurname(const std::string& surname);
+    // setters
+    void setName(const std::string &name);
+    void setSurname(const std::string &surname);
     void setIdNumber(long int idNumber);
-    void setAddress(const std::string& address);
-    void setState(const std::string& state);
-    void setGender(const Gender& gender);
+    void setAddress(const std::string &address);
+    void setState(const std::string &state);
+    void setGender(const Gender &gender);
     void setCard(std::shared_ptr<Card> cardPtr);
 };
 

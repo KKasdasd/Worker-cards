@@ -1,14 +1,13 @@
 #include "worker.hpp"
 
 Worker::Worker(
-    const std::string& name,
-    const std::string& surname,
+    const std::string &name,
+    const std::string &surname,
     long int idNumber,
-    const std::string& address,
-    const std::string& state,
+    const std::string &address,
+    const std::string &state,
     Gender gender,
-    std::shared_ptr<Card> cardPtr
-) 
+    std::shared_ptr<Card> cardPtr)
     : name_(name),
       surname_(surname),
       idNumber_(idNumber),
@@ -17,6 +16,9 @@ Worker::Worker(
       gender_(gender),
       cardPtr_(std::make_shared<Card>()) {}
 
+Worker::~Worker(){}
+
+// getters
 std::string Worker::getName() const
 {
     return name_;
@@ -46,11 +48,12 @@ std::shared_ptr<Card> Worker::getCard() const
     return cardPtr_;
 }
 
-void Worker::setName(const std::string& name)
+// setters
+void Worker::setName(const std::string &name)
 {
     name_ = name;
 }
-void Worker::setSurname(const std::string& surname)
+void Worker::setSurname(const std::string &surname)
 {
     surname_ = surname;
 }
@@ -58,15 +61,15 @@ void Worker::setIdNumber(long int idNumber)
 {
     idNumber_ = idNumber;
 }
-void Worker::setAddress(const std::string& address)
+void Worker::setAddress(const std::string &address)
 {
     address_ = address;
 }
-void Worker::setState(const std::string& state)
+void Worker::setState(const std::string &state)
 {
     state_ = state;
 }
-void Worker::setGender(const Gender& gender)
+void Worker::setGender(const Gender &gender)
 {
     gender_ = gender;
 }

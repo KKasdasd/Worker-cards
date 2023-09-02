@@ -51,5 +51,27 @@ TEST(WorkerTest, SetterMethods)
   EXPECT_EQ(w1.getState(), "New state");
   EXPECT_EQ(w1.getGender(), Gender::Female);
   EXPECT_TRUE(w1.getCard() != nullptr);
+}
 
+TEST(CardTest, InitialValues)
+{
+  Card card;
+  
+  EXPECT_TRUE(card.getArrivalTimes().empty());
+  EXPECT_TRUE(card.getDparureTimes().empty());
+
+  EXPECT_EQ(card.getTimeIn(), 0);
+  EXPECT_EQ(card.getTimeOut(), 0);
+
+}
+
+TEST(CardTest, ClockInAndOut)
+{
+  Card card;
+
+  card.clockIn();
+  EXPECT_FALSE(card.getArrivalTimes().empty());
+
+  card.clockOut();
+  EXPECT_FALSE(card.getDparureTimes().empty());
 }
