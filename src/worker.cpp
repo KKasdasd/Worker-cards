@@ -5,14 +5,13 @@ Worker::Worker(
     const std::string &surname,
     long int idNumber,
     const std::string &address,
-    const std::string &state,
-    Gender gender,
-    std::shared_ptr<Card> cardPtr)
+    const std::string &jobTitle,
+    Gender gender)
     : name_(name),
       surname_(surname),
       idNumber_(idNumber),
       address_(address),
-      state_(state),
+      jobTitle_(jobTitle),
       gender_(gender),
       cardPtr_(std::make_shared<Card>()) {}
 
@@ -35,9 +34,9 @@ std::string Worker::getAddress() const
 {
     return address_;
 }
-std::string Worker::getState() const
+std::string Worker::getJobTitle() const
 {
-    return state_;
+    return jobTitle_;
 }
 Gender Worker::getGender() const
 {
@@ -65,15 +64,11 @@ void Worker::setAddress(const std::string &address)
 {
     address_ = address;
 }
-void Worker::setState(const std::string &state)
+void Worker::setJobTitle(const std::string &jobTitle)
 {
-    state_ = state;
+    jobTitle_ = jobTitle;
 }
 void Worker::setGender(const Gender &gender)
 {
     gender_ = gender;
-}
-void Worker::setCard(std::shared_ptr<Card> cardPtr)
-{
-    cardPtr_ = cardPtr;
 }

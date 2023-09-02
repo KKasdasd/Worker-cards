@@ -21,7 +21,7 @@ protected:
     std::string surname_;
     long int idNumber_;
     std::string address_;
-    std::string state_;
+    std::string jobTitle_;
     Gender gender_;
     std::shared_ptr<Card> cardPtr_;
 
@@ -31,9 +31,8 @@ public:
         const std::string &surname,
         long int id_number,
         const std::string &address,
-        const std::string &state,
-        Gender gender,
-        std::shared_ptr<Card> cardPtr);
+        const std::string &jobTitle,
+        Gender gender);
 
     ~Worker();
 
@@ -42,7 +41,7 @@ public:
     std::string getSurname() const;
     long int getIdNumber() const;
     std::string getAddress() const;
-    std::string getState() const;
+    std::string getJobTitle() const;
     Gender getGender() const;
     std::shared_ptr<Card> getCard() const;
 
@@ -51,9 +50,9 @@ public:
     void setSurname(const std::string &surname);
     void setIdNumber(long int idNumber);
     void setAddress(const std::string &address);
-    void setState(const std::string &state);
+    void setJobTitle(const std::string &state);
     void setGender(const Gender &gender);
-    void setCard(std::shared_ptr<Card> cardPtr);
+
 };
 
 #endif

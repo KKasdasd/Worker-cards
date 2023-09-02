@@ -14,6 +14,7 @@ protected:
 
 public:
     Card();
+    ~Card();
     // getters
     std::time_t getTimeIn() const;
     std::time_t getTimeOut() const;

@@ -4,6 +4,8 @@
 
 
 Card::Card() : timeIn_(0), timeOut_(0){}
+
+Card::~Card(){}
 //getters
 std::time_t Card::getTimeIn() const
 {
@@ -14,6 +16,15 @@ std::time_t Card::getTimeOut() const
     return timeOut_;
 }
 
+const std::vector<std::string>& Card::getArrivalTimes() const
+{
+    return arrivalTimes_;
+}
+const std::vector<std::string>& Card::getDparureTimes() const
+{
+    return departureTimes_;
+}
+//Methodes
 void Card::clockIn()
 {
     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
@@ -29,12 +40,3 @@ void Card::clockOut()
     departureTimes_.push_back(timeString);
 }
 
-const std::vector<std::string>& Card::getArrivalTimes() const
-{
-    return arrivalTimes_;
-}
-
-const std::vector<std::string>& Card::getDparureTimes() const
-{
-    return departureTimes_;
-}
