@@ -3,7 +3,7 @@
 Worker::Worker(
     const std::string& name,
     const std::string& surname,
-    long int id_number,
+    long int idNumber,
     const std::string& address,
     const std::string& state,
     Gender gender,
@@ -11,7 +11,7 @@ Worker::Worker(
 ) 
     : name_(name),
       surname_(surname),
-      id_number_(id_number),
+      idNumber_(idNumber),
       address_(address),
       state_(state),
       gender_(gender),
@@ -27,7 +27,7 @@ std::string Worker::getSurname() const
 }
 long int Worker::getIdNumber() const
 {
-    return id_number_;
+    return idNumber_;
 }
 std::string Worker::getAddress() const
 {
@@ -44,4 +44,33 @@ Gender Worker::getGender() const
 std::shared_ptr<Card> Worker::getCard() const
 {
     return cardPtr_;
+}
+
+void Worker::setName(const std::string& name)
+{
+    name_ = name;
+}
+void Worker::setSurname(const std::string& surname)
+{
+    surname_ = surname;
+}
+void Worker::setIdNumber(long int idNumber)
+{
+    idNumber_ = idNumber;
+}
+void Worker::setAddress(const std::string& address)
+{
+    address_ = address;
+}
+void Worker::setState(const std::string& state)
+{
+    state_ = state;
+}
+void Worker::setGender(const Gender& gender)
+{
+    gender_ = gender;
+}
+void Worker::setCard(std::shared_ptr<Card> cardPtr)
+{
+    cardPtr_ = cardPtr;
 }
