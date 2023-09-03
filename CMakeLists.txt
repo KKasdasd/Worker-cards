@@ -6,7 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCE
   src/worker.cpp
-  src/card.cpp)
+  src/card.cpp
+  src/system.cpp)
 add_executable(${PROJECT_NAME} 
   src/main.cpp
   ${SOURCE}

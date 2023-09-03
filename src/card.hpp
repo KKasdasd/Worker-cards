@@ -19,7 +19,7 @@ public:
     std::time_t getTimeIn() const;
     std::time_t getTimeOut() const;
     const std::vector<std::string>& getArrivalTimes() const;
-    const std::vector<std::string>& getDparureTimes() const;
+    const std::vector<std::string>& getDeparureTimes() const;
     //Methodes
     void clockIn();
     void clockOut();

@@ -20,7 +20,7 @@ const std::vector<std::string>& Card::getArrivalTimes() const
 {
     return arrivalTimes_;
 }
-const std::vector<std::string>& Card::getDparureTimes() const
+const std::vector<std::string>& Card::getDeparureTimes() const
 {
     return departureTimes_;
 }
