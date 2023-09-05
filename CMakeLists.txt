@@ -26,7 +26,7 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(${PROJECT_NAME}-ut
-    src/Tests.cpp
+    tests/Tests.cpp
     ${SOURCE}
 )
 target_link_libraries(${PROJECT_NAME}-ut

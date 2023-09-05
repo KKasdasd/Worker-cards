@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "Worker.hpp"
-#include "Card.hpp"
-#include "System.hpp"
+#include "../src/Worker.hpp"
+#include "../src/Card.hpp"
+#include "../src/System.hpp"
 
 Worker createDefaultWorker()
 {
