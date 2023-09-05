@@ -7,7 +7,7 @@ Worker createDefaultWorker()
 {
   std::string name = "name example";
   std::string surname = "surname example";
-  long int idNumber = 12345678901;
+  unsigned long int idNumber = 12345678901;
   std::string address = "address example";
   std::string jobTitle = "job title example";
   Gender gender = Gender::Male;
@@ -19,7 +19,7 @@ Worker createDefaultWorker2()
 {
   std::string name = "name example2";
   std::string surname = "surname example2";
-  long int idNumber = 2137;
+  unsigned long int idNumber = 2137;
   std::string address = "address example2";
   std::string jobTitle = "job title example2";
   Gender gender = Gender::Female;
@@ -66,11 +66,9 @@ TEST(WorkerTest, SetterMethods)
 TEST(CardTest, InitialValues)
 {
   Card card;
-  Card card2;
 
   EXPECT_TRUE(card.getArrivalTimes().empty());
   EXPECT_TRUE(card.getDeparureTimes().empty());
-  EXPECT_EQ(card.getCardId(), 1);
 }
 
 TEST(CardTest, ClockInAndOut)

@@ -19,7 +19,7 @@ class Worker
 protected:
     std::string name_;
     std::string surname_;
-    long int idNumber_;
+    unsigned long int idNumber_;
     std::string address_;
     std::string jobTitle_;
     Gender gender_;
@@ -29,7 +29,7 @@ public:
     Worker(
         const std::string &name,
         const std::string &surname,
-        long int id_number,
+        unsigned long int id_number,
         const std::string &address,
         const std::string &jobTitle,
         Gender gender);
@@ -39,7 +39,7 @@ public:
     // getters
     std::string getName() const;
     std::string getSurname() const;
-    long int getIdNumber() const;
+    unsigned long int getIdNumber() const;
     std::string getAddress() const;
     std::string getJobTitle() const;
     Gender getGender() const;
@@ -48,7 +48,7 @@ public:
     // setters
     void setName(const std::string &name);
     void setSurname(const std::string &surname);
-    void setIdNumber(long int idNumber);
+    void setIdNumber(unsigned long int idNumber);
     void setAddress(const std::string &address);
     void setJobTitle(const std::string &state);
     void setGender(const Gender &gender);

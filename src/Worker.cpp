@@ -3,7 +3,7 @@
 Worker::Worker(
     const std::string &name,
     const std::string &surname,
-    long int idNumber,
+    unsigned long int idNumber,
     const std::string &address,
     const std::string &jobTitle,
     Gender gender)
@@ -26,7 +26,7 @@ std::string Worker::getSurname() const
 {
     return surname_;
 }
-long int Worker::getIdNumber() const
+unsigned long int Worker::getIdNumber() const
 {
     return idNumber_;
 }
@@ -56,7 +56,7 @@ void Worker::setSurname(const std::string &surname)
 {
     surname_ = surname;
 }
-void Worker::setIdNumber(long int idNumber)
+void Worker::setIdNumber(unsigned long int idNumber)
 {
     idNumber_ = idNumber;
 }
