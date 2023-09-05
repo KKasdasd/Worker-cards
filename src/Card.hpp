@@ -11,6 +11,9 @@ protected:
     std::time_t timeOut_;
     std::vector<std::string> arrivalTimes_;
     std::vector<std::string> departureTimes_;
+    unsigned long int cardId_;
+    static unsigned int cardIdTracker_;
+
 
 public:
     Card();
@@ -18,6 +21,7 @@ public:
     // getters
     std::time_t getTimeIn() const;
     std::time_t getTimeOut() const;
+    unsigned long int getCardId() const;
     const std::vector<std::string>& getArrivalTimes() const;
     const std::vector<std::string>& getDeparureTimes() const;
     //Methodes

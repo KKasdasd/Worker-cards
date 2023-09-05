@@ -2,8 +2,11 @@
 #include<chrono>
 #include<ctime>
 
-
-Card::Card() : timeIn_(0), timeOut_(0){}
+unsigned int Card::cardIdTracker_ = 1;
+Card::Card() : cardId_(cardIdTracker_)
+{
+    cardIdTracker_ ++;
+}
 
 Card::~Card(){}
 //getters
@@ -15,7 +18,10 @@ std::time_t Card::getTimeOut() const
 {
     return timeOut_;
 }
-
+unsigned long int Card::getCardId() const
+{
+    return cardId_;
+}
 const std::vector<std::string>& Card::getArrivalTimes() const
 {
     return arrivalTimes_;

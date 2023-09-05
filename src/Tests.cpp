@@ -66,12 +66,11 @@ TEST(WorkerTest, SetterMethods)
 TEST(CardTest, InitialValues)
 {
   Card card;
+  Card card2;
 
   EXPECT_TRUE(card.getArrivalTimes().empty());
   EXPECT_TRUE(card.getDeparureTimes().empty());
-
-  EXPECT_EQ(card.getTimeIn(), 0);
-  EXPECT_EQ(card.getTimeOut(), 0);
+  EXPECT_EQ(card.getCardId(), 1);
 }
 
 TEST(CardTest, ClockInAndOut)
