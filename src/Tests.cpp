@@ -42,6 +42,29 @@ TEST(WorkerTest, ConstructorInitialization)
   EXPECT_TRUE(w1.getCard() != nullptr);
 }
 
+TEST(WorkerTest, PrintWorkerData)
+{
+  Worker w1 = createDefaultWorker();
+
+  std::stringstream output;
+  std::streambuf* oldStdout = std::cout.rdbuf(output.rdbuf());
+
+  w1.printWorkerData();
+  
+  std::cout.rdbuf(oldStdout);
+
+  std::string expectedOutput = 
+    "Worker informations\n\n"
+    "Name: name example\n" 
+    "Surname: surname example\n" 
+    "Id number: 12345678901\n" 
+    "Address: address example\n" 
+    "Job title: job title example\n" 
+    "Gender: Male\n";
+
+  EXPECT_EQ(output.str(), expectedOutput);
+}
+
 TEST(WorkerTest, SetterMethods)
 {
 
@@ -103,7 +126,7 @@ TEST(CardTest, ClockInOutCustomTime)
 
   EXPECT_FALSE(card.getArrivalTimes().empty());
   EXPECT_FALSE(card.getDeparureTimes().empty());
-  
+
 }
 
 TEST(WorkerCardInteractionTest, WorkerCreatesCard)

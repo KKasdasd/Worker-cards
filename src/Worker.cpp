@@ -15,7 +15,7 @@ Worker::Worker(
       gender_(gender),
       cardPtr_(std::make_shared<Card>()) {}
 
-Worker::~Worker(){}
+Worker::~Worker() {}
 
 // getters
 std::string Worker::getName() const
@@ -71,4 +71,31 @@ void Worker::setJobTitle(const std::string &jobTitle)
 void Worker::setGender(const Gender &gender)
 {
     gender_ = gender;
+}
+
+// methodes
+void Worker::printWorkerData() const
+{
+    std::cout << "Worker informations\n\n";
+    std::cout << "Name: " << getName() << std::endl;
+    std::cout << "Surname: " << getSurname() << std::endl;
+    std::cout << "Id number: " << getIdNumber() << std::endl;
+    std::cout << "Address: " << getAddress() << std::endl;
+    std::cout << "Job title: " << getJobTitle() << std::endl;
+    std::cout << "Gender: " << getGenderAsString() << std::endl;
+}
+
+std::string Worker::getGenderAsString() const
+{
+    switch (getGender())
+    {
+        case Male:
+            return "Male";
+        case Female:
+            return "Female";
+        case Other:
+            return "Other";
+        default:
+            return "Unknow";
+    }
 }

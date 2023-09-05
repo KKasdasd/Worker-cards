@@ -66,7 +66,7 @@ void System::generateWorkersReport(const std::string &filename) const
         reportFile << "ID Number: " << worker.getIdNumber() << std::endl;
         reportFile << "Address: " << worker.getAddress() << std::endl;
         reportFile << "Job Title: " << worker.getJobTitle() << std::endl;
-        reportFile << "Gender: " << static_cast<int>(worker.getGender()) << std::endl;
+        reportFile << "Gender: " << worker.getGenderAsString() << std::endl;
         reportFile << "------------------" << std::endl;
     }
 

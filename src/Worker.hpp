@@ -7,7 +7,7 @@
 
 // using cardPtr = std::shared_ptr<Card>();
 
-enum class Gender
+enum Gender
 {
     Male,
     Female,
@@ -52,6 +52,10 @@ public:
     void setAddress(const std::string &address);
     void setJobTitle(const std::string &state);
     void setGender(const Gender &gender);
+
+    //Methodes
+    void printWorkerData() const;
+    std::string getGenderAsString() const;
 
 };
 
