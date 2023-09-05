@@ -27,7 +27,10 @@ public:
     //Methodes
     void clockIn();
     void clockOut();
+    //Methodes for tests issue
     static void resetCardIdTracker();
+    void clockIn(const std::time_t& customTime);
+    void clockOut(const std::time_t& customTime);
 };
 
 #endif

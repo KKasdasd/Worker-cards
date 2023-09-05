@@ -86,6 +86,26 @@ TEST(CardTest, ClockInAndOut)
   EXPECT_FALSE(card.getDeparureTimes().empty());
 }
 
+TEST(CardTest, ClockInOutCustomTime)
+{
+  Card card;
+  std::tm customTime{};
+  customTime.tm_year = 123;
+  customTime.tm_year = 0;
+  customTime.tm_mday = 1;
+  customTime.tm_hour = 12;
+  customTime.tm_min = 30;
+  customTime.tm_sec = 0;
+  
+  std::time_t customClockTime = std::mktime(&customTime);
+  card.clockIn(customClockTime);
+  card.clockOut(customClockTime);
+
+  EXPECT_FALSE(card.getArrivalTimes().empty());
+  EXPECT_FALSE(card.getDeparureTimes().empty());
+  
+}
+
 TEST(WorkerCardInteractionTest, WorkerCreatesCard)
 {
   Worker w1 = createDefaultWorker();
@@ -104,6 +124,7 @@ TEST(WorkerCardInteractionTest, WorkerClockInClockOut)
   EXPECT_FALSE(w1.getCard()->getArrivalTimes().empty());
   EXPECT_FALSE(w1.getCard()->getDeparureTimes().empty());
 }
+
 
 //System tests
 TEST(SystemTest, AddRemoveWorker)

@@ -45,8 +45,20 @@ void Card::clockOut()
     departureTimes_.push_back(timeString);
 }
 
+
+//Methodes for tests issue
 void Card::resetCardIdTracker()
 {
     cardIdTracker_ = 1;
+}
+void Card::clockIn(const std::time_t& customTime)
+{
+    std::string timeString = std::ctime(&customTime);
+    arrivalTimes_.push_back(timeString);
+}
+void Card::clockOut(const std::time_t& customTime)
+{
+    std::string TimeString = std::ctime(&customTime);
+    departureTimes_.push_back(TimeString);
 }
 
