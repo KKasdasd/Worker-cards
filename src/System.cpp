@@ -1,4 +1,4 @@
-#include "system.hpp"
+#include "System.hpp"
 #include <algorithm>
 #include <fstream>
 void System::addWorker(const Worker &worker)

@@ -5,11 +5,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCE
-  src/worker.cpp
-  src/card.cpp
-  src/system.cpp)
+  src/Worker.cpp
+  src/Card.cpp
+  src/System.cpp)
 add_executable(${PROJECT_NAME} 
-  src/main.cpp
+  src/Main.cpp
   ${SOURCE}
 )
 
@@ -26,7 +26,7 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(${PROJECT_NAME}-ut
-    src/tests.cpp
+    src/Tests.cpp
     ${SOURCE}
 )
 target_link_libraries(${PROJECT_NAME}-ut

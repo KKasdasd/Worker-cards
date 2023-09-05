@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <iostream>
-#include "worker.hpp"
+#include "Worker.hpp"
 
 class System
 {

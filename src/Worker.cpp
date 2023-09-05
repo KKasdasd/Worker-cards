@@ -1,4 +1,4 @@
-#include "worker.hpp"
+#include "Worker.hpp"
 
 Worker::Worker(
     const std::string &name,

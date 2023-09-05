@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <memory>
-#include "card.hpp"
+#include "Card.hpp"
 
 // using cardPtr = std::shared_ptr<Card>();
 
