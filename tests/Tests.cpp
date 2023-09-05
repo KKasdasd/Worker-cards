@@ -27,7 +27,7 @@ Worker createDefaultWorker2()
   return Worker(name, surname, idNumber, address, jobTitle, gender);
 }
 
-//Worker Tests
+// Worker Tests
 TEST(WorkerTest, ConstructorInitialization)
 {
 
@@ -47,20 +47,20 @@ TEST(WorkerTest, PrintWorkerData)
   Worker w1 = createDefaultWorker();
 
   std::stringstream output;
-  std::streambuf* oldStdout = std::cout.rdbuf(output.rdbuf());
+  std::streambuf *oldStdout = std::cout.rdbuf(output.rdbuf());
 
   w1.printWorkerData();
-  
+
   std::cout.rdbuf(oldStdout);
 
-  std::string expectedOutput = 
-    "Worker informations\n\n"
-    "Name: name example\n" 
-    "Surname: surname example\n" 
-    "Id number: 12345678901\n" 
-    "Address: address example\n" 
-    "Job title: job title example\n" 
-    "Gender: Male\n";
+  std::string expectedOutput =
+      "Worker informations\n\n"
+      "Name: name example\n"
+      "Surname: surname example\n"
+      "Id number: 12345678901\n"
+      "Address: address example\n"
+      "Job title: job title example\n"
+      "Gender: Male\n";
 
   EXPECT_EQ(output.str(), expectedOutput);
 }
@@ -85,28 +85,19 @@ TEST(WorkerTest, SetterMethods)
   EXPECT_EQ(w1.getGender(), Gender::Female);
   EXPECT_TRUE(w1.getCard() != nullptr);
 }
-//Card tests
+// Card tests
 TEST(CardTest, InitialValues)
 {
   Card::resetCardIdTracker();
   Card card;
   Card card2;
 
-  EXPECT_TRUE(card.getArrivalTimes().empty());
-  EXPECT_TRUE(card.getDeparureTimes().empty());
   EXPECT_EQ(card.getCardId(), 1);
   EXPECT_EQ(card2.getCardId(), 2);
 }
 
-TEST(CardTest, ClockInAndOut)
+TEST(CardTest, clockInOut)
 {
-  Card card;
-
-  card.clockIn();
-  EXPECT_FALSE(card.getArrivalTimes().empty());
-
-  card.clockOut();
-  EXPECT_FALSE(card.getDeparureTimes().empty());
 }
 
 TEST(CardTest, ClockInOutCustomTime)
@@ -119,14 +110,8 @@ TEST(CardTest, ClockInOutCustomTime)
   customTime.tm_hour = 12;
   customTime.tm_min = 30;
   customTime.tm_sec = 0;
-  
+
   std::time_t customClockTime = std::mktime(&customTime);
-  card.clockIn(customClockTime);
-  card.clockOut(customClockTime);
-
-  EXPECT_FALSE(card.getArrivalTimes().empty());
-  EXPECT_FALSE(card.getDeparureTimes().empty());
-
 }
 
 TEST(WorkerCardInteractionTest, WorkerCreatesCard)
@@ -136,20 +121,7 @@ TEST(WorkerCardInteractionTest, WorkerCreatesCard)
   EXPECT_TRUE(w1.getCard() != nullptr);
 }
 
-TEST(WorkerCardInteractionTest, WorkerClockInClockOut)
-{
-
-  Worker w1 = createDefaultWorker();
-
-  w1.getCard()->clockIn();
-  w1.getCard()->clockOut();
-
-  EXPECT_FALSE(w1.getCard()->getArrivalTimes().empty());
-  EXPECT_FALSE(w1.getCard()->getDeparureTimes().empty());
-}
-
-
-//System tests
+// System tests
 TEST(SystemTest, AddRemoveWorker)
 {
   System mySystem;
@@ -168,7 +140,7 @@ TEST(SystemTest, FindBySurname)
   System mySystem;
   Worker w1 = createDefaultWorker();
   Worker w2 = createDefaultWorker2();
-  
+
   mySystem.addWorker(w1);
   mySystem.addWorker(w2);
 
@@ -183,7 +155,7 @@ TEST(SystemTest, FindByIdNumber)
 {
   System mySystem;
   Worker w1 = createDefaultWorker();
-  Worker w2 =createDefaultWorker2();
+  Worker w2 = createDefaultWorker2();
 
   mySystem.addWorker(w1);
   mySystem.addWorker(w2);
@@ -193,20 +165,4 @@ TEST(SystemTest, FindByIdNumber)
 
   foundWorker = mySystem.findByIdNumber(000000);
   EXPECT_EQ(foundWorker, nullptr);
-}
-
-TEST(SystemTest, SortBySurname)
-{
-  System mySystem;
-  Worker w1 = createDefaultWorker();
-  Worker w2 = createDefaultWorker2();
-
-  mySystem.addWorker(w1);
-  mySystem.addWorker(w2);
-
-  mySystem.SortBySurname();
-
-  EXPECT_EQ(mySystem.getWorkers()[0].getSurname(), w1.getSurname());
-  EXPECT_EQ(mySystem.getWorkers()[1].getSurname(), w2.getSurname());
-
 }

@@ -7,6 +7,8 @@
 
 // using cardPtr = std::shared_ptr<Card>();
 
+class Card;
+
 enum Gender
 {
     Male,

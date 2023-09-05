@@ -3,29 +3,29 @@
 #include <fstream>
 void System::addWorker(const Worker &worker)
 {
-    workers.push_back(worker);
+    workers_.push_back(worker);
 }
 std::vector<Worker> System::getWorkers() const
 {
-    return workers;
+    return workers_;
 }
 bool System::removeWorkerByIdNumber(long int idNumber)
 {
-    auto it = std::remove_if(workers.begin(), workers.end(),
+    auto it = std::remove_if(workers_.begin(), workers_.end(),
                              [idNumber](const Worker &worker)
                              { return worker.getIdNumber() == idNumber; });
 
-    if (it != workers.end())
+    if (it != workers_.end())
     {
-        workers.erase(it, workers.end());
+        workers_.erase(it, workers_.end());
         return true;
     }
     else
         return false;
 }
-Worker *System::findBySurname(const std::string &surname) 
+Worker *System::findBySurname(const std::string &surname)
 {
-    for (auto &worker : workers)
+    for (auto &worker : workers_)
         if (worker.getSurname() == surname)
             return &worker;
     return nullptr;
@@ -33,7 +33,7 @@ Worker *System::findBySurname(const std::string &surname)
 
 Worker *System::findByIdNumber(long int idNumber)
 {
-    for (auto &worker : workers)
+    for (auto &worker : workers_)
         if (worker.getIdNumber() == idNumber)
             return &worker;
     return nullptr;
@@ -41,7 +41,7 @@ Worker *System::findByIdNumber(long int idNumber)
 
 void System::SortBySurname()
 {
-    std::sort(workers.begin(), workers.end(),
+    std::sort(workers_.begin(), workers_.end(),
               [](const Worker &a, const Worker &b)
               { return a.getSurname() < b.getSurname(); });
 }
@@ -59,7 +59,7 @@ void System::generateWorkersReport(const std::string &filename) const
     reportFile << "Employee Raport" << std::endl;
     reportFile << "------------------\n\n";
 
-    for (const auto &worker : workers)
+    for (const auto &worker : workers_)
     {
         reportFile << "Name: " << worker.getName() << std::endl;
         reportFile << "Surname: " << worker.getSurname() << std::endl;
@@ -73,32 +73,55 @@ void System::generateWorkersReport(const std::string &filename) const
     reportFile.close();
 }
 
-void System::generateArrivalDepartureReport(const std::string filename) const
+// void System::generateArrivalDepartureReport(const std::string filename) const
+// {
+//     std::ofstream reportFile(filename);
+
+//     if (!reportFile)
+//     {
+//         std::cerr << "Failed to open the raport file" << std::endl;
+//         return;
+//     }
+
+//     reportFile << "Arrival and Departure Raport\n\n";
+
+//     for (const auto &worker : workers)
+//     {
+//         reportFile << "Worker: " << worker.getName() << " " << worker.getSurname()
+//                    << ", Id Number: " << worker.getIdNumber() << std::endl;
+
+//         const std::vector<std::string> &arrivalTimes = worker.getCard()->getArrivalTimes();
+//         const std::vector<std::string> &departureTimes = worker.getCard()->getDeparureTimes();
+
+//         reportFile << "Arrival Times:\n";
+//         for(const auto& arrival : arrivalTimes)
+//             reportFile << " " << arrival << std::endl;
+
+//         reportFile << "Departure Times:\n";
+//         for(const auto& departure : departureTimes)
+//             reportFile << " " << departure << std::endl;
+//     }
+// }
+
+void System::clockIn(unsigned long int cardId)
 {
-    std::ofstream reportFile(filename);
+    std::time_t currentTime = std::time(nullptr);
+    auto it = clockTimes_.find(cardId);
 
-    if (!reportFile)
-    {
-        std::cerr << "Failed to open the raport file" << std::endl;
-        return;
-    }
-
-    reportFile << "Arrival and Departure Raport\n\n";
-
-    for (const auto &worker : workers)
-    {
-        reportFile << "Worker: " << worker.getName() << " " << worker.getSurname()
-                   << ", Id Number: " << worker.getIdNumber() << std::endl;
-
-        const std::vector<std::string> &arrivalTimes = worker.getCard()->getArrivalTimes();
-        const std::vector<std::string> &departureTimes = worker.getCard()->getDeparureTimes();
-
-        reportFile << "Arrival Times:\n";
-        for(const auto& arrival : arrivalTimes)
-            reportFile << " " << arrival << std::endl;
-        
-        reportFile << "Departure Times:\n";
-        for(const auto& departure : departureTimes)
-            reportFile << " " << departure << std::endl;
-    }
+    if (it != clockTimes_.end())
+        it->second.first = currentTime;
+    else
+        std::cerr << "Worker not found" << std::endl;
 }
+
+void System::clockOut(unsigned long int cardId)
+{
+    std::time_t currentTime = std::time(nullptr);
+    auto it = clockTimes_.find(cardId);
+
+    if (it != clockTimes_.end())
+        it->second.second = currentTime;
+    else
+        std::cerr << "Worker not found" << std::endl;
+}
+// methodes for tests

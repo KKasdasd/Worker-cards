@@ -1,64 +1,32 @@
 #include "Card.hpp"
-#include<chrono>
-#include<ctime>
+#include <chrono>
+#include <ctime>
 
 unsigned int Card::cardIdTracker_ = 1;
 Card::Card() : cardId_(cardIdTracker_)
 {
-    cardIdTracker_ ++;
+    cardIdTracker_++;
 }
-Card::~Card(){}
-//getters
-std::time_t Card::getTimeIn() const
-{
-    return timeIn_;
-}
-std::time_t Card::getTimeOut() const
-{
-    return timeOut_;
-}
+Card::~Card() {}
+// getters
+
 unsigned long int Card::getCardId() const
 {
     return cardId_;
 }
-const std::vector<std::string>& Card::getArrivalTimes() const
+
+// Methodes
+void Card::clockIn(System &system)
 {
-    return arrivalTimes_;
+    system.clockIn(cardId_);
 }
-const std::vector<std::string>& Card::getDeparureTimes() const
+void Card::clockOut(System &system)
 {
-    return departureTimes_;
-}
-//Methodes
-void Card::clockIn()
-{
-    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-    std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
-    std::string timeString = std::ctime(&currentTime);
-    arrivalTimes_.push_back(timeString);
-}
-void Card::clockOut()
-{
-    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-    std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
-    std::string timeString = std::ctime(&currentTime);
-    departureTimes_.push_back(timeString);
+    system.clockOut(cardId_);
 }
 
-
-//Methodes for tests issue
+// Methodes for tests issue
 void Card::resetCardIdTracker()
 {
     cardIdTracker_ = 1;
 }
-void Card::clockIn(const std::time_t& customTime)
-{
-    std::string timeString = std::ctime(&customTime);
-    arrivalTimes_.push_back(timeString);
-}
-void Card::clockOut(const std::time_t& customTime)
-{
-    std::string TimeString = std::ctime(&customTime);
-    departureTimes_.push_back(TimeString);
-}
-
