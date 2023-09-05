@@ -65,10 +65,14 @@ TEST(WorkerTest, SetterMethods)
 //Card tests
 TEST(CardTest, InitialValues)
 {
+  Card::resetCardIdTracker();
   Card card;
+  Card card2;
 
   EXPECT_TRUE(card.getArrivalTimes().empty());
   EXPECT_TRUE(card.getDeparureTimes().empty());
+  EXPECT_EQ(card.getCardId(), 1);
+  EXPECT_EQ(card2.getCardId(), 2);
 }
 
 TEST(CardTest, ClockInAndOut)

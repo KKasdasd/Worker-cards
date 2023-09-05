@@ -7,7 +7,6 @@ Card::Card() : cardId_(cardIdTracker_)
 {
     cardIdTracker_ ++;
 }
-
 Card::~Card(){}
 //getters
 std::time_t Card::getTimeIn() const
@@ -44,5 +43,10 @@ void Card::clockOut()
     std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
     std::string timeString = std::ctime(&currentTime);
     departureTimes_.push_back(timeString);
+}
+
+void Card::resetCardIdTracker()
+{
+    cardIdTracker_ = 1;
 }
 

@@ -27,6 +27,7 @@ public:
     //Methodes
     void clockIn();
     void clockOut();
+    static void resetCardIdTracker();
 };
 
 #endif
