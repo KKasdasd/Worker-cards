@@ -1,6 +1,7 @@
 #include "System.hpp"
 #include <algorithm>
 #include <fstream>
+
 void System::addWorker(const Worker &worker)
 {
     workers_.push_back(worker);
@@ -9,19 +10,28 @@ std::vector<Worker> System::getWorkers() const
 {
     return workers_;
 }
-bool System::removeWorkerByIdNumber(long int idNumber)
+bool System::removeWorker(unsigned long int idNumber)
 {
-    auto it = std::remove_if(workers_.begin(), workers_.end(),
-                             [idNumber](const Worker &worker)
-                             { return worker.getIdNumber() == idNumber; });
+    std::map<unsigned long int, Worker> workerToRemove = findWorker("", "", idNumber);
 
-    if (it != workers_.end())
+    if (workerToRemove.empty())
     {
-        workers_.erase(it, workers_.end());
-        return true;
-    }
-    else
+        std::cerr << "Worker with ID: " << idNumber << " not found." << std::endl;
         return false;
+    }
+
+    for (const auto &entry : workerToRemove)
+    {
+        auto it = std::remove_if(workers_.begin(), workers_.end(),
+                                 [entry](const Worker &worker)
+                                 { return worker.getIdNumber() == entry.first; });
+        if (it != workers_.end())
+        {
+            workers_.erase(it, workers_.end());
+            return true;
+        }
+    }
+    return false;
 }
 Worker *System::findBySurname(const std::string &surname)
 {
@@ -124,4 +134,24 @@ void System::clockOut(unsigned long int cardId)
     else
         std::cerr << "Worker not found" << std::endl;
 }
+
+std::map<unsigned long int, Worker> System::findWorker(
+    const std::string &name = "",
+    const std::string &surname = "",
+    unsigned long int id = 0) const
+{
+    std::map<unsigned long int, Worker> matchingWorkers;
+
+    for (const auto &worker : workers_)
+    {
+        if ((name.empty() || worker.getName() == name) &&
+            (surname.empty() || worker.getSurname() == surname) &&
+            (id == 0 || worker.getIdNumber() == id))
+        {
+            matchingWorkers[worker.getIdNumber()] = worker;
+        }
+    }
+    return matchingWorkers;
+}
+
 // methodes for tests

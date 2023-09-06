@@ -17,22 +17,24 @@ private:
 public:
     // worker methodes
     void addWorker(const Worker &worker);
-    bool removeWorkerByIdNumber(long int idNumber);
+    bool removeWorker(unsigned long int idNumber);
     std::vector<Worker> getWorkers() const;
-
-    // utility methodes
     Worker *findBySurname(const std::string &surname);
     Worker *findByIdNumber(long int idNumber);
     void SortBySurname();
     void generateWorkersReport(const std::string &filename) const;
     void generateArrivalDepartureReport(const std::string filename) const;
+    std::map<unsigned long int, Worker> findWorker(
+        const std::string &name = "",
+        const std::string &surname = "",
+        unsigned long int id = 0) const;
 
     // card methodes
     void clockIn(unsigned long int cardId);
     void clockOut(unsigned long int cardId);
+    
 
     // Methodes for tests issue
-    
 };
 
 #endif
