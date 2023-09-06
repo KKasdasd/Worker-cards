@@ -101,40 +101,39 @@ void System::generateWorkersReport(const std::string &filename) const
     reportFile.close();
 }
 
-// void System::generateArrivalDepartureReport(const std::string filename) const
-// {
-//     std::ofstream reportFile(filename);
+void System::generateArrivalDepartureReport(const std::string filename) const
+{
+    std::ofstream reportFile(filename);
 
-//     if (!reportFile)
-//     {
-//         std::cerr << "Failed to open the raport file" << std::endl;
-//         return;
-//     }
+    if (!reportFile)
+    {
+        std::cerr << "Failed to open the raport file" << std::endl;
+        return;
+    }
 
-//     reportFile << "Arrival and Departure Raport\n\n";
+    reportFile << "Arrival and Departure Raport\n\n";
 
-//     for (const auto &worker : workers)
-//     {
-//         reportFile << "Worker: " << worker.getName() << " " << worker.getSurname()
-//                    << ", Id Number: " << worker.getIdNumber() << std::endl;
+    for (const auto &worker : workers_)
+    {
+        reportFile << "Worker: " << worker.getName() << " " << worker.getSurname()
+                   << ", Id Number: " << worker.getIdNumber() << std::endl;
 
-//         const std::vector<std::string> &arrivalTimes = worker.getCard()->getArrivalTimes();
-//         const std::vector<std::string> &departureTimes = worker.getCard()->getDeparureTimes();
+        auto range = clockTimes_.equal_range(worker.getIdNumber());
 
-//         reportFile << "Arrival Times:\n";
-//         for(const auto& arrival : arrivalTimes)
-//             reportFile << " " << arrival << std::endl;
+        reportFile << "Arrival Times:\n";
+        for(auto it = range.first; it != range.second; it++)
+            reportFile << " " << std::asctime(std::localtime(&it->second.first));
 
-//         reportFile << "Departure Times:\n";
-//         for(const auto& departure : departureTimes)
-//             reportFile << " " << departure << std::endl;
-//     }
-// }
+        reportFile << "Departure Times:\n";
+        for(auto it = range.first; it != range.second; it++)
+            reportFile << " " << std::asctime(std::localtime(&it->second.second));
+    }
+}
 
-void System::clockIn(unsigned long int cardId)
+void System::clockIn(unsigned long int idNumber)
 {
     std::time_t currentTime = std::time(nullptr);
-    auto it = clockTimes_.find(cardId);
+    auto it = clockTimes_.find(idNumber);
 
     if (it != clockTimes_.end())
         it->second.first = currentTime;
@@ -142,10 +141,10 @@ void System::clockIn(unsigned long int cardId)
         std::cerr << "Worker not found" << std::endl;
 }
 
-void System::clockOut(unsigned long int cardId)
+void System::clockOut(unsigned long int idNumber)
 {
     std::time_t currentTime = std::time(nullptr);
-    auto it = clockTimes_.find(cardId);
+    auto it = clockTimes_.find(idNumber);
 
     if (it != clockTimes_.end())
         it->second.second = currentTime;

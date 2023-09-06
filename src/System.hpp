@@ -31,8 +31,8 @@ public:
     std::time_t getTotalWorkHours(unsigned long int cardId) const;
 
     // card methodes
-    void clockIn(unsigned long int cardId);
-    void clockOut(unsigned long int cardId);
+    void clockIn(unsigned long int idNumber);
+    void clockOut(unsigned long int idNumber);
     
 
     // Methodes for tests issue
