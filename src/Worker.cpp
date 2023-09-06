@@ -7,20 +7,24 @@ Worker::Worker(
     unsigned long int idNumber,
     const std::string &address,
     const std::string &jobTitle,
-    Gender gender)
+    Gender gender,
+    double pension,
+    double salaryPerHour)
     : name_(name),
       surname_(surname),
       idNumber_(idNumber),
       address_(address),
       jobTitle_(jobTitle),
       gender_(gender),
-      cardPtr_(std::make_shared<Card>()) {}
+      cardPtr_(std::make_shared<Card>()),
+      pension_(pension),
+      salaryPerHour_(salaryPerHour) {}
 
     Worker::Worker(
         const std::string &name,
         const std::string &surname,
         unsigned long int idNumber)
-    :Worker(name, surname, idNumber, "", "", Gender::Male){}
+    :Worker(name, surname, idNumber, "", "", Gender::Male, 0, 0){}
 
 Worker::~Worker() {}
 
@@ -53,6 +57,14 @@ std::shared_ptr<Card> Worker::getCard() const
 {
     return cardPtr_;
 }
+double Worker::getPension() const
+{
+    return pension_;
+}
+double Worker::getSalaryPerHour() const
+{
+    return salaryPerHour_;
+}
 
 // setters
 void Worker::setName(const std::string &name)
@@ -78,6 +90,14 @@ void Worker::setJobTitle(const std::string &jobTitle)
 void Worker::setGender(const Gender &gender)
 {
     gender_ = gender;
+}
+void Worker::setPension(double pension)
+{
+    pension_ = pension;
+}
+void Worker::setSalaryPerHour(double salaryPerHour)
+{
+    salaryPerHour_ = salaryPerHour;
 }
 
 // methodes

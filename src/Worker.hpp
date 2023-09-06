@@ -26,6 +26,8 @@ protected:
     std::string jobTitle_;
     Gender gender_;
     std::shared_ptr<Card> cardPtr_;
+    double pension_;
+    double salaryPerHour_;
 
 public:
     Worker() = default;
@@ -35,7 +37,9 @@ public:
         unsigned long int id_number,
         const std::string &address,
         const std::string &jobTitle,
-        Gender gender);
+        Gender gender,
+        double pension,
+        double salaryPerHour_);
 
     Worker(
         const std::string &name,
@@ -52,6 +56,8 @@ public:
     std::string getJobTitle() const;
     Gender getGender() const;
     std::shared_ptr<Card> getCard() const;
+    double getPension() const;
+    double getSalaryPerHour() const;
 
     // setters
     void setName(const std::string &name);
@@ -60,6 +66,8 @@ public:
     void setAddress(const std::string &address);
     void setJobTitle(const std::string &state);
     void setGender(const Gender &gender);
+    void setPension(double pension);
+    void setSalaryPerHour(double salaryPerHour);
 
     //Methodes
     void printWorkerData() const;
