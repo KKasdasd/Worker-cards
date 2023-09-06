@@ -2,8 +2,26 @@
 #include <algorithm>
 #include <fstream>
 
-void System::addWorker(const Worker &worker)
+void System::addWorker(Worker &worker)
 {
+    for (const auto &existingWorker : workers_)
+    {
+        if ((existingWorker.getName() == worker.getName()) &&
+            (existingWorker.getSurname() == worker.getSurname()))
+        {
+            int uniqueIndex = 1;
+            std::string uniqueName = worker.getName() + "." + std::to_string(uniqueIndex);
+            while (std::any_of(workers_.begin(), workers_.end(),
+                               [uniqueName](const Worker &w)
+                               { return w.getName() == uniqueName; }))
+            {
+                uniqueIndex++;
+                uniqueName = worker.getName() + "." + std::to_string(uniqueIndex);
+            }
+            worker.setName(uniqueName);
+            break;
+        }
+    }
     workers_.push_back(worker);
 }
 std::vector<Worker> System::getWorkers() const

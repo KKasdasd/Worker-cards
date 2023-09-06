@@ -16,7 +16,7 @@ private:
 
 public:
     // worker methodes
-    void addWorker(const Worker &worker);
+    void addWorker(Worker &worker);
     bool removeWorker(unsigned long int idNumber);
     std::vector<Worker> getWorkers() const;
     Worker *findBySurname(const std::string &surname);
