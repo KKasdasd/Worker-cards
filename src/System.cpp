@@ -154,9 +154,9 @@ void System::clockOut(unsigned long int cardId)
 }
 
 std::map<unsigned long int, Worker> System::findWorker(
-    const std::string &name = "",
-    const std::string &surname = "",
-    unsigned long int id = 0) const
+    const std::string &name,
+    const std::string &surname,
+    unsigned long int id) const
 {
     std::map<unsigned long int, Worker> matchingWorkers;
 
@@ -170,6 +170,22 @@ std::map<unsigned long int, Worker> System::findWorker(
         }
     }
     return matchingWorkers;
+}
+
+std::time_t System::getTotalWorkHours(unsigned long int cardId) const
+{
+    auto range = clockTimes_.equal_range(cardId);
+    std::time_t totalWorkHours = 0;
+
+    for (auto it = range.first; it != range.second; it++)
+    {
+        std::time_t clockInTime = it->second.first;
+        std::time_t clockOutTime = it->second.second;
+
+        if(clockOutTime != 0)
+            totalWorkHours += (clockOutTime - clockInTime) / 3600;
+    }
+    return totalWorkHours;
 }
 
 // methodes for tests

@@ -28,6 +28,7 @@ public:
         const std::string &name = "",
         const std::string &surname = "",
         unsigned long int id = 0) const;
+    std::time_t getTotalWorkHours(unsigned long int cardId) const;
 
     // card methodes
     void clockIn(unsigned long int cardId);

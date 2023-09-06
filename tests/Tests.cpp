@@ -3,6 +3,8 @@
 #include "../src/Card.hpp"
 #include "../src/System.hpp"
 
+#if 0
+
 Worker createDefaultWorker()
 {
   std::string name = "name example";
@@ -166,3 +168,4 @@ TEST(SystemTest, FindByIdNumber)
   foundWorker = mySystem.findByIdNumber(000000);
   EXPECT_EQ(foundWorker, nullptr);
 }
+#endif

@@ -28,6 +28,7 @@ protected:
     std::shared_ptr<Card> cardPtr_;
 
 public:
+    Worker() = default;
     Worker(
         const std::string &name,
         const std::string &surname,
@@ -35,6 +36,11 @@ public:
         const std::string &address,
         const std::string &jobTitle,
         Gender gender);
+
+    Worker(
+        const std::string &name,
+        const std::string &surname,
+        unsigned long int id_number);
 
     ~Worker();
 

@@ -1,5 +1,6 @@
 #include "Worker.hpp"
 
+
 Worker::Worker(
     const std::string &name,
     const std::string &surname,
@@ -14,6 +15,12 @@ Worker::Worker(
       jobTitle_(jobTitle),
       gender_(gender),
       cardPtr_(std::make_shared<Card>()) {}
+
+    Worker::Worker(
+        const std::string &name,
+        const std::string &surname,
+        unsigned long int idNumber)
+    :Worker(name, surname, idNumber, "", "", Gender::Male){}
 
 Worker::~Worker() {}
 
