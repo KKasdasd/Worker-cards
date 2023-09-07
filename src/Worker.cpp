@@ -2,14 +2,14 @@
 
 
 Worker::Worker(
-    const std::string &name,
-    const std::string &surname,
-    unsigned long int idNumber,
-    const std::string &address,
-    const std::string &jobTitle,
-    Gender gender,
-    double pension,
-    double salaryPerHour)
+    const std::string &name = "",
+    const std::string &surname = "",
+    unsigned long int idNumber = 0,
+    const std::string &address = "",
+    const std::string &jobTitle = "",
+    Gender gender = Other,
+    double pension = 0,
+    double salaryPerHour = 0)
     : name_(name),
       surname_(surname),
       idNumber_(idNumber),
@@ -20,11 +20,7 @@ Worker::Worker(
       pension_(pension),
       salaryPerHour_(salaryPerHour) {}
 
-    Worker::Worker(
-        const std::string &name,
-        const std::string &surname,
-        unsigned long int idNumber)
-    :Worker(name, surname, idNumber, "", "", Gender::Male, 0, 0){}
+
 
 Worker::~Worker() {}
 
@@ -100,7 +96,7 @@ void Worker::setSalaryPerHour(double salaryPerHour)
     salaryPerHour_ = salaryPerHour;
 }
 
-// methodes
+// methods
 void Worker::printWorkerData() const
 {
     std::cout << "Worker informations\n\n";

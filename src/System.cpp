@@ -187,4 +187,4 @@ std::time_t System::getTotalWorkHours(unsigned long int cardId) const
     return totalWorkHours;
 }
 
-// methodes for tests
+// methods for tests

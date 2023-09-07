@@ -5,8 +5,6 @@
 #include <memory>
 #include "Card.hpp"
 
-// using cardPtr = std::shared_ptr<Card>();
-
 class Card;
 
 enum Gender
@@ -41,10 +39,7 @@ public:
         double pension,
         double salaryPerHour_);
 
-    Worker(
-        const std::string &name,
-        const std::string &surname,
-        unsigned long int id_number);
+
 
     ~Worker();
 
@@ -69,10 +64,9 @@ public:
     void setPension(double pension);
     void setSalaryPerHour(double salaryPerHour);
 
-    //Methodes
+    // Methods
     void printWorkerData() const;
     std::string getGenderAsString() const;
-
 };
 
 #endif

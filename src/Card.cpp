@@ -15,7 +15,7 @@ unsigned long int Card::getCardId() const
     return cardId_;
 }
 
-// Methodes
+// Methods
 void Card::clockIn(System &system)
 {
     system.clockIn(cardId_);
@@ -25,7 +25,7 @@ void Card::clockOut(System &system)
     system.clockOut(cardId_);
 }
 
-// Methodes for tests issue
+// Methods for tests issue
 void Card::resetCardIdTracker()
 {
     cardIdTracker_ = 1;

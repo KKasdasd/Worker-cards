@@ -15,7 +15,7 @@ private:
     std::multimap<unsigned long int, std::pair<std::time_t, std::time_t>> clockTimes_;
 
 public:
-    // worker methodes
+    // worker methods
     void addWorker(Worker &worker);
     bool removeWorker(unsigned long int idNumber);
     std::vector<Worker> getWorkers() const;
@@ -30,12 +30,12 @@ public:
         unsigned long int id = 0) const;
     std::time_t getTotalWorkHours(unsigned long int cardId) const;
 
-    // card methodes
+    // card methods
     void clockIn(unsigned long int idNumber);
     void clockOut(unsigned long int idNumber);
     
 
-    // Methodes for tests issue
+    // Methods for tests issue
 };
 
 #endif

@@ -20,10 +20,10 @@ public:
     // getters
     unsigned long int getCardId() const;
 
-    //Methodes
+    //Methods
     void clockIn(System& system);
     void clockOut(System& system);
-    //Methodes for tests issue
+    //Methods for tests issue
     static void resetCardIdTracker();
 
 };
