@@ -3,7 +3,7 @@
 #include <ctime>
 
 
-Card::Card(){}
+Card::Card() : cardId_(){}
 Card::~Card() {}
 // getters
 

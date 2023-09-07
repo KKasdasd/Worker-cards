@@ -21,18 +21,11 @@ public:
     void addWorker(Worker &worker);
     bool removeWorker(unsigned long int idNumber);
     std::vector<Worker> getWorkers() const;
-    Worker *findBySurname(const std::string &surname);
-    Worker *findByIdNumber(long int idNumber);
+    const Worker* findWorker(unsigned long int idNumber) const;
     void SortBySurname();
     void generateWorkersReport(const std::string &filename) const;
     void generateArrivalDepartureReport(const std::string filename) const;
-    std::map<unsigned long int, Worker> findWorker(
-        const std::string &name = "",
-        const std::string &surname = "",
-        unsigned long int id = 0) const;
-    std::time_t getTotalWorkHours(unsigned long int cardId) const;
-
-    // card methods
+    std::time_t getTotalWorkHours(unsigned long int workerId) const;
     void clockIn(const Worker &worker);
     void clockOut(const Worker &worker);
     

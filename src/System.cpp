@@ -24,43 +24,35 @@ void System::addWorker(Worker &worker)
     }
     workers_.push_back(worker);
 }
+bool System::removeWorker(unsigned long int idNumber)
+{
+    auto it = std::remove_if(workers_.begin(), workers_.end(),
+                             [idNumber](const Worker &w)
+                             { return w.getIdNumber() == idNumber; });
+
+    if (it != workers_.end())
+    {
+        workers_.erase(it, workers_.end());
+        std::cout << "Worker: " << it->getName() << " " << it->getSurname()
+                  << " id: " << it->getIdNumber() << " successfully removed";
+        return true;
+    }
+    std::cout << "Could not find worker for given parameter: " << idNumber;
+    return false;
+}
+
 std::vector<Worker> System::getWorkers() const
 {
     return workers_;
 }
-bool System::removeWorker(unsigned long int idNumber)
-{
-    std::map<unsigned long int, Worker> workerToRemove = findWorker("", "", idNumber);
 
-    if (workerToRemove.empty())
+const Worker *System::findWorker(unsigned long int idNumber) const
+{
+    for (const auto &worker : workers_)
     {
-        std::cerr << "Worker with ID: " << idNumber << " not found." << std::endl;
-        return false;
-    }
-
-    auto it = std::remove_if(workers_.begin(), workers_.end(),
-                             [idNumber](const Worker &worker)
-                             { return worker.getIdNumber() == idNumber; });
-    if (it != workers_.end())
-    {
-        workers_.erase(it, workers_.end());
-        return true;
-    }
-    return false;
-}
-Worker *System::findBySurname(const std::string &surname)
-{
-    for (auto &worker : workers_)
-        if (worker.getSurname() == surname)
-            return &worker;
-    return nullptr;
-}
-
-Worker *System::findByIdNumber(long int idNumber)
-{
-    for (auto &worker : workers_)
         if (worker.getIdNumber() == idNumber)
             return &worker;
+    }
     return nullptr;
 }
 
@@ -127,6 +119,23 @@ void System::generateArrivalDepartureReport(const std::string filename) const
     }
 }
 
+std::time_t System::getTotalWorkHours(unsigned long int workerId) const
+{
+    std::time_t totalWorkHours = 0;
+
+    for (const auto &entry : clockTimes_)
+    {
+        if (entry.first == workerId)
+        {
+            std::time_t clockInTime = entry.second.first;
+            std::time_t clockOutTime = entry.second.second;
+
+            if (clockOutTime != 0)
+                totalWorkHours = (clockOutTime - clockInTime) / 3600;
+        }
+    }
+    return totalWorkHours;
+}
 void System::clockIn(const Worker &worker)
 {
     std::time_t currentTime = worker.getCard()->clockIn();
@@ -145,41 +154,6 @@ void System::clockOut(const Worker &worker)
         it->second.second = currentTime;
     else
         std::cerr << "Worker not found" << std::endl;
-}
-
-std::map<unsigned long int, Worker> System::findWorker(
-    const std::string &name,
-    const std::string &surname,
-    unsigned long int id) const
-{
-    std::map<unsigned long int, Worker> matchingWorkers;
-
-    for (const auto &worker : workers_)
-    {
-        if ((name.empty() || worker.getName() == name) &&
-            (surname.empty() || worker.getSurname() == surname) &&
-            (id == 0 || worker.getIdNumber() == id))
-        {
-            matchingWorkers[worker.getIdNumber()] = worker;
-        }
-    }
-    return matchingWorkers;
-}
-
-std::time_t System::getTotalWorkHours(unsigned long int cardId) const
-{
-    auto range = clockTimes_.equal_range(cardId);
-    std::time_t totalWorkHours = 0;
-
-    for (auto it = range.first; it != range.second; it++)
-    {
-        std::time_t clockInTime = it->second.first;
-        std::time_t clockOutTime = it->second.second;
-
-        if (clockOutTime != 0)
-            totalWorkHours += (clockOutTime - clockInTime) / 3600;
-    }
-    return totalWorkHours;
 }
 
 // methods for tests
