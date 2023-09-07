@@ -1,13 +1,11 @@
 #include "Card.hpp"
-#include <chrono>
-#include <ctime>
 
 
-Card::Card() : cardId_(){}
-Card::~Card() {}
+
+Card::Card() : cardId_(System::generateCardId()){}
 // getters
 
-unsigned long int Card::getCardId() const
+unsigned long int  Card::getCardId() const
 {
     return cardId_;
 }
@@ -23,5 +21,7 @@ std::time_t Card::clockOut() const
     std::time_t currentTime = std::time(nullptr);
     return currentTime;
 }
+
+
 
 // Methods for tests issue

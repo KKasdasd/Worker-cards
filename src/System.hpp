@@ -14,6 +14,7 @@ class System
 private:
     std::vector<Worker> workers_;
     std::multimap<unsigned long int, std::pair<std::time_t, std::time_t>> clockTimes_;
+    static unsigned long int cardIdCounter_;
     
 
 public:
@@ -28,6 +29,7 @@ public:
     std::time_t getTotalWorkHours(unsigned long int workerId) const;
     void clockIn(const Worker &worker);
     void clockOut(const Worker &worker);
+    static unsigned long int generateCardId();
     
 
     // Methods for tests issue

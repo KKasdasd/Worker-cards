@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <fstream>
 
+unsigned long int System::cardIdCounter_ = 1;
+
 void System::addWorker(Worker &worker)
 {
     for (const auto &existingWorker : workers_)
@@ -154,6 +156,11 @@ void System::clockOut(const Worker &worker)
         it->second.second = currentTime;
     else
         std::cerr << "Worker not found" << std::endl;
+}
+
+unsigned long int System::generateCardId()
+{
+    return cardIdCounter_++;
 }
 
 // methods for tests

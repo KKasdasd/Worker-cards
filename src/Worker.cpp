@@ -117,3 +117,4 @@ std::string Worker::getGenderAsString() const
         return "Unknow";
     }
 }
+

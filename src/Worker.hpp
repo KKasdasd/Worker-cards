@@ -67,6 +67,7 @@ public:
     // Methods
     void printWorkerData() const;
     std::string getGenderAsString() const;
+
 };
 
 #endif
