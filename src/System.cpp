@@ -38,16 +38,13 @@ bool System::removeWorker(unsigned long int idNumber)
         return false;
     }
 
-    for (const auto &entry : workerToRemove)
+    auto it = std::remove_if(workers_.begin(), workers_.end(),
+                             [idNumber](const Worker &worker)
+                             { return worker.getIdNumber() == idNumber; });
+    if (it != workers_.end())
     {
-        auto it = std::remove_if(workers_.begin(), workers_.end(),
-                                 [entry](const Worker &worker)
-                                 { return worker.getIdNumber() == entry.first; });
-        if (it != workers_.end())
-        {
-            workers_.erase(it, workers_.end());
-            return true;
-        }
+        workers_.erase(it, workers_.end());
+        return true;
     }
     return false;
 }
@@ -121,20 +118,20 @@ void System::generateArrivalDepartureReport(const std::string filename) const
         auto range = clockTimes_.equal_range(worker.getIdNumber());
 
         reportFile << "Arrival Times:\n";
-        for(auto it = range.first; it != range.second; it++)
+        for (auto it = range.first; it != range.second; it++)
             reportFile << " " << std::asctime(std::localtime(&it->second.first));
 
         reportFile << "Departure Times:\n";
-        for(auto it = range.first; it != range.second; it++)
+        for (auto it = range.first; it != range.second; it++)
             reportFile << " " << std::asctime(std::localtime(&it->second.second));
     }
 }
 
 void System::clockIn(const Worker &worker)
 {
-    std::time_t currentTime = worker.getCard()->clockIn(); 
+    std::time_t currentTime = worker.getCard()->clockIn();
     auto it = clockTimes_.find(worker.getIdNumber());
-    if(it != clockTimes_.end())
+    if (it != clockTimes_.end())
         it->second.first = currentTime;
     else
         std::cerr << "Worker not found" << std::endl;
@@ -142,9 +139,9 @@ void System::clockIn(const Worker &worker)
 
 void System::clockOut(const Worker &worker)
 {
-    std::time_t currentTime = worker.getCard()->clockOut(); 
+    std::time_t currentTime = worker.getCard()->clockOut();
     auto it = clockTimes_.find(worker.getIdNumber());
-    if(it != clockTimes_.end())
+    if (it != clockTimes_.end())
         it->second.second = currentTime;
     else
         std::cerr << "Worker not found" << std::endl;
@@ -179,7 +176,7 @@ std::time_t System::getTotalWorkHours(unsigned long int cardId) const
         std::time_t clockInTime = it->second.first;
         std::time_t clockOutTime = it->second.second;
 
-        if(clockOutTime != 0)
+        if (clockOutTime != 0)
             totalWorkHours += (clockOutTime - clockInTime) / 3600;
     }
     return totalWorkHours;
