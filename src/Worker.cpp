@@ -1,15 +1,14 @@
 #include "Worker.hpp"
 
-
 Worker::Worker(
-    const std::string &name = "",
-    const std::string &surname = "",
-    unsigned long int idNumber = 0,
-    const std::string &address = "",
-    const std::string &jobTitle = "",
-    Gender gender = Other,
-    double pension = 0,
-    double salaryPerHour = 0)
+    const std::string &name,
+    const std::string &surname,
+    unsigned long int idNumber,
+    const std::string &address,
+    const std::string &jobTitle,
+    Gender gender,
+    double pension,
+    double salaryPerHour)
     : name_(name),
       surname_(surname),
       idNumber_(idNumber),
@@ -19,10 +18,6 @@ Worker::Worker(
       cardPtr_(std::make_shared<Card>()),
       pension_(pension),
       salaryPerHour_(salaryPerHour) {}
-
-
-
-Worker::~Worker() {}
 
 // getters
 std::string Worker::getName() const
@@ -112,13 +107,13 @@ std::string Worker::getGenderAsString() const
 {
     switch (getGender())
     {
-        case Male:
-            return "Male";
-        case Female:
-            return "Female";
-        case Other:
-            return "Other";
-        default:
-            return "Unknow";
+    case Male:
+        return "Male";
+    case Female:
+        return "Female";
+    case Other:
+        return "Other";
+    default:
+        return "Unknow";
     }
 }

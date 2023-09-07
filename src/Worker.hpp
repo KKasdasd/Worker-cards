@@ -30,18 +30,18 @@ protected:
 public:
     Worker() = default;
     Worker(
-        const std::string &name,
-        const std::string &surname,
-        unsigned long int id_number,
-        const std::string &address,
-        const std::string &jobTitle,
-        Gender gender,
-        double pension,
-        double salaryPerHour_);
+        const std::string &name = "",
+        const std::string &surname = "",
+        unsigned long int id_number = 0,
+        const std::string &address = 0,
+        const std::string &jobTitle = 0,
+        Gender gender = Gender::Other,
+        double pension = 0,
+        double salaryPerHour_ = 0);
 
 
 
-    ~Worker();
+
 
     // getters
     std::string getName() const;
