@@ -11,7 +11,6 @@ class Card
 {
 protected:
     unsigned long int cardId_;
-    static unsigned int cardIdTracker_;
 
 
 public:
@@ -21,8 +20,8 @@ public:
     unsigned long int getCardId() const;
 
     //Methods
-    void clockIn(System& system);
-    void clockOut(System& system);
+    std::time_t clockIn() const;
+    std::time_t clockOut() const;
     //Methods for tests issue
     static void resetCardIdTracker();
 

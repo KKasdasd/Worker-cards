@@ -8,11 +8,13 @@
 #include "Card.hpp"
 
 class Worker;
+class Card;
 class System
 {
 private:
     std::vector<Worker> workers_;
     std::multimap<unsigned long int, std::pair<std::time_t, std::time_t>> clockTimes_;
+    
 
 public:
     // worker methods
@@ -31,8 +33,8 @@ public:
     std::time_t getTotalWorkHours(unsigned long int cardId) const;
 
     // card methods
-    void clockIn(unsigned long int idNumber);
-    void clockOut(unsigned long int idNumber);
+    void clockIn(const Worker &worker);
+    void clockOut(const Worker &worker);
     
 
     // Methods for tests issue

@@ -2,11 +2,8 @@
 #include <chrono>
 #include <ctime>
 
-unsigned int Card::cardIdTracker_ = 1;
-Card::Card() : cardId_(cardIdTracker_)
-{
-    cardIdTracker_++;
-}
+
+Card::Card(){}
 Card::~Card() {}
 // getters
 
@@ -16,17 +13,15 @@ unsigned long int Card::getCardId() const
 }
 
 // Methods
-void Card::clockIn(System &system)
+std::time_t Card::clockIn() const
 {
-    system.clockIn(cardId_);
+    std::time_t currentTime = std::time(nullptr);
+    return currentTime;
 }
-void Card::clockOut(System &system)
+std::time_t Card::clockOut() const
 {
-    system.clockOut(cardId_);
+    std::time_t currentTime = std::time(nullptr);
+    return currentTime;
 }
 
 // Methods for tests issue
-void Card::resetCardIdTracker()
-{
-    cardIdTracker_ = 1;
-}
