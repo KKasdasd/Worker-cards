@@ -34,6 +34,13 @@ protected:
   Card card;
 };
 
+class SystemTest : public ::testing::Test
+{
+protected:
+  System system;
+
+public:
+};
 
 TEST_F(WorkerTest, ConstructorAndGetters)
 {
@@ -81,7 +88,7 @@ TEST_F(WorkerTest, GetGenderAsString)
 
 TEST_F(WorkerTest, PrintWorkerData)
 {
-  std::streambuf* oldCoutBuffer = std::cout.rdbuf();
+  std::streambuf *oldCoutBuffer = std::cout.rdbuf();
   std::cout.rdbuf(outputBuffer.rdbuf());
 
   worker.printWorkerData();
@@ -89,19 +96,18 @@ TEST_F(WorkerTest, PrintWorkerData)
   std::cout.rdbuf(oldCoutBuffer);
 
   std::string expectedOutput =
-    "Worker informations\n\n"
-    "Name: Example name\n"
-    "Surname: Example surname\n"
-    "Id number: 12345678901\n"
-    "Address: Example address\n"
-    "Job title: Example job title\n"
-    "Gender: Male\n"
-    "Pension: 1000\n"
-    "Salary per hour: 25\n";
+      "Worker informations\n\n"
+      "Name: Example name\n"
+      "Surname: Example surname\n"
+      "Id number: 12345678901\n"
+      "Address: Example address\n"
+      "Job title: Example job title\n"
+      "Gender: Male\n"
+      "Pension: 1000\n"
+      "Salary per hour: 25\n";
 
   EXPECT_EQ(outputBuffer.str(), expectedOutput);
 }
-
 
 // Card tests
 
@@ -120,52 +126,50 @@ TEST_F(CardTest, ClockInAndOut)
 
   EXPECT_LE(startTime, endTime);
 }
-
-
-#if 0
 // System tests
-TEST(SystemTest, AddRemoveWorker)
+TEST_F(SystemTest, AddWorkerGetWorkersGetIdCard)
 {
-  System mySystem;
-  Worker w1 = createDefaultWorker();
-  Worker w2 = createDefaultWorker2();
-  mySystem.addWorker(w1);
+  system.resetIdCardCounter();
 
-  EXPECT_TRUE(!mySystem.getWorkers().empty());
-  EXPECT_TRUE(mySystem.removeWorkerByIdNumber(w1.getIdNumber()));
-  EXPECT_FALSE(mySystem.removeWorkerByIdNumber(w2.getIdNumber()));
-  EXPECT_FALSE(mySystem.removeWorkerByIdNumber(w1.getIdNumber()));
+  Worker w1("name", "surname", 123, "address", "job title", Gender::Other, 100.0, 15.0);
+
+  Worker w2("name2", "surname2", 123, "address2", "job title2", Gender::Female, 159.0, 10.0);
+  Worker w3("name", "surname", 123456, "address", "job title", Gender::Other, 100.0, 15.0);
+
+  system.addWorker(w1);
+  system.addWorker(w2);
+  system.addWorker(w3);
+
+  std::vector<Worker> workers = system.getWorkers();
+  EXPECT_EQ(workers.size(), 3);
+  EXPECT_NE(w1.getName(), w3.getName());
+
+  EXPECT_EQ(w1.getCard()->getCardId(), 1);
+  EXPECT_EQ(w2.getCard()->getCardId(), 2);
+  EXPECT_EQ(w3.getCard()->getCardId(), 3);
 }
 
-TEST(SystemTest, FindBySurname)
+TEST_F(SystemTest, RemoveWorkerFindWorker)
 {
-  System mySystem;
-  Worker w1 = createDefaultWorker();
-  Worker w2 = createDefaultWorker2();
+  Worker w1("name", "surname", 123, "address", "job title", Gender::Other, 100.0, 15.0);
+  system.addWorker(w1);
+  const Worker *w2 = system.findWorker(w1.getIdNumber());
+  EXPECT_EQ(w1.getIdNumber(), w2->getIdNumber());
 
-  mySystem.addWorker(w1);
-  mySystem.addWorker(w2);
-
-  Worker *foundWorker = mySystem.findBySurname(w1.getSurname());
-  EXPECT_EQ(foundWorker->getIdNumber(), w1.getIdNumber());
-
-  foundWorker = mySystem.findBySurname("No Existent Surname");
-  EXPECT_EQ(foundWorker, nullptr);
+  system.removeWorker(w1.getIdNumber());
+  EXPECT_EQ(system.getWorkers().size(), 0);
 }
 
-TEST(SystemTest, FindByIdNumber)
+TEST_F(SystemTest, SortBySurname)
 {
-  System mySystem;
-  Worker w1 = createDefaultWorker();
-  Worker w2 = createDefaultWorker2();
+  Worker w1("name", "Smith", 123, "address", "job title", Gender::Other, 100.0, 15.0);
+  Worker w2("name", "Johnson", 123, "address", "job title", Gender::Other, 100.0, 15.0);
 
-  mySystem.addWorker(w1);
-  mySystem.addWorker(w2);
-
-  Worker *foundWorker = mySystem.findByIdNumber(w1.getIdNumber());
-  EXPECT_EQ(foundWorker->getSurname(), w1.getSurname());
-
-  foundWorker = mySystem.findByIdNumber(000000);
-  EXPECT_EQ(foundWorker, nullptr);
+  std::vector<Worker> workers;
+  system.addWorker(w1);
+  system.addWorker(w2);
+  
+  system.SortBySurname();
+  for(size_t i = 1; i < system.getWorkers().size(); i++)
+    EXPECT_LE(workers[i - 1].getSurname(), workers[i].getSurname());
 }
-#endif
