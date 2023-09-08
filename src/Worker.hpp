@@ -24,7 +24,6 @@ protected:
     std::string jobTitle_;
     Gender gender_;
     std::shared_ptr<Card> cardPtr_;
-    double pension_;
     double salaryPerHour_;
 
 public:
