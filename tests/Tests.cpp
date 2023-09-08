@@ -40,6 +40,21 @@ protected:
   System system;
 
 public:
+  void AddWorkerWihHours(const std::string &name, 
+                        const std::string &surname,
+                        unsigned long int id,
+                        double hourlyRate,
+                        double hoursWorked)
+{
+  Worker worker(name, surname, id, "address", "job title", Gender::Other, 100.0, hourlyRate);
+  system.addWorker(worker);
+
+  for(int i = 0; i < hoursWorked; i++) 
+  {
+    system.clockIn(worker);
+    system.clockOut(worker);
+  }
+}
 };
 
 TEST_F(WorkerTest, ConstructorAndGetters)
@@ -174,4 +189,36 @@ TEST_F(SystemTest, SortBySurname)
   system.SortBySurname();
   for (size_t i = 1; i < system.getWorkers().size(); i++)
     EXPECT_LE(workers[i - 1].getSurname(), workers[i].getSurname());
+}
+
+TEST_F(SystemTest, CalculateMonthlySalaries)
+{
+  system.resetIdCardCounter();
+  AddWorkerWihHours("Jhon", "Smith", 1, 20.0, 160);
+  AddWorkerWihHours("Jhon2", "Smith3", 2, 30.0, 170);
+  AddWorkerWihHours("Jhon3", "Smith3", 3, 40.0, 180);
+
+  system.calculateMonthlySalaries();
+  std::multimap<std::string, std::pair<Worker, double>> salaryReport =
+  system.getMonthlySalaryReport();
+
+  EXPECT_EQ(salaryReport.count(system.getCurrentMonthAndYear()), 3);
+    for (const auto& entry : salaryReport)
+    {
+        const Worker& worker = entry.second.first;
+        double salary = entry.second.second;
+
+        if (worker.getIdNumber() == 1) // John's ID is 1
+        {
+            EXPECT_DOUBLE_EQ(salary, 3200.0);
+        }
+        else if (worker.getIdNumber() == 2) // Jane's ID is 2
+        {
+            EXPECT_DOUBLE_EQ(salary, 2100.0);
+        }
+        else if (worker.getIdNumber() == 3) // Alice's ID is 3
+        {
+            EXPECT_DOUBLE_EQ(salary, 4500.0);
+        }
+    }
 }

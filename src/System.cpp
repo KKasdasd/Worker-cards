@@ -49,7 +49,7 @@ std::vector<Worker> System::getWorkers() const
 {
     return workers_;
 }
-std::multimap<unsigned long int, std::pair<std::time_t, std::time_t>> System::getClockTimes() const 
+std::multimap<unsigned long int, std::pair<std::time_t, std::time_t>> System::getClockTimes() const
 {
     return clockTimes_;
 }
@@ -169,6 +169,60 @@ void System::clockOut(const Worker &worker)
 unsigned long int System::generateCardId()
 {
     return cardIdCounter_++;
+}
+
+std::string System::getCurrentMonthAndYear() const
+{
+    std::time_t currentTime = std::time(nullptr);
+    int currentYear = static_cast<int>(std::localtime(&currentTime)->tm_year) + 1900;
+    int currentMonth = static_cast<int>(std::localtime(&currentTime)->tm_mon + 1);
+
+    std::stringstream ss;
+    ss << std::setw(2) << std::setfill('0') << currentMonth << "-" << currentYear;
+
+    return ss.str();
+}
+
+void System::calculateMonthlySalaries()
+{
+    for (const auto &worker : workers_)
+    {
+        double monthlySalary =
+            worker.getSalaryPerHour() * getTotalWorkHours(worker.getIdNumber());
+        std::string monthAndYear = getCurrentMonthAndYear();
+        monthlySalaryReport_.insert(
+            std::make_pair(monthAndYear, std::make_pair(
+                                             worker, monthlySalary)));
+    }
+}
+std::multimap<std::string, std::pair<Worker, double>> System::getMonthlySalaryReport() const
+{
+    return monthlySalaryReport_;
+}
+
+void System::generateSalaryRaport(const std::string &filename) const
+{
+    std::ofstream reportFile(filename);
+
+    if (!reportFile)
+    {
+        std::cerr << "Failed to open the report file" << std::endl;
+        return;
+    }
+    for (const auto &entry : monthlySalaryReport_)
+    {
+        const Worker &worker = entry.second.first;
+        const double salary = entry.second.second;
+
+        reportFile << "Month: " << entry.first << std::endl;
+        reportFile << "Name: " << worker.getName() << std::endl;
+        reportFile << "Surname: " << worker.getSurname() << std::endl;
+        reportFile << "ID Number: " << worker.getIdNumber() << std::endl;
+        reportFile << "Monthly Salary: " << salary << std::endl;
+        reportFile << "------------------" << std::endl;
+    }
+
+    reportFile.close();
 }
 
 // methods for tests

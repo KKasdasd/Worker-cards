@@ -4,6 +4,9 @@
 #include <vector>
 #include <iostream>
 #include <map>
+#include <ctime>
+#include <chrono>
+#include <iomanip>
 #include "Worker.hpp"
 #include "Card.hpp"
 
@@ -15,6 +18,7 @@ private:
     std::vector<Worker> workers_;
     std::multimap<unsigned long int, std::pair<std::time_t, std::time_t>> clockTimes_;
     static unsigned long int cardIdCounter_;
+    std::multimap<std::string, std::pair<Worker, double>> monthlySalaryReport_;
     
 
 public:
@@ -31,6 +35,10 @@ public:
     void clockIn(const Worker &worker);
     void clockOut(const Worker &worker);
     static unsigned long int generateCardId();
+    std::string getCurrentMonthAndYear() const;
+    void calculateMonthlySalaries();
+    std::multimap<std::string, std::pair<Worker, double>> getMonthlySalaryReport() const;
+    void generateSalaryRaport(const std::string &filename) const;
     
     
 
