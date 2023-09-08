@@ -3,90 +3,39 @@
 #include "../src/Card.hpp"
 #include "../src/System.hpp"
 
+class WorkerTest : ::testing::Test
+{
+protected:
+  Worker worker;
+public:
+  void setUp() 
+  {
+    worker = Worker("Example name",
+                    "Example surname",
+                    12345678901,
+                    "Example address",
+                    "Example job title",
+                    Gender::Male,
+                    1000.0,
+                    25.0);
+  }
+};
+
+// TEST_F(WorkerTest, ConstructorAndGetters)
+// {
+//   EXPECT_EQ(worker.getName(), "Example name");
+//   EXPECT_EQ(worker.getSurname(), "Example surname");
+//   EXPECT_EQ(worker.getIdNumber(), 11345678901);
+//   EXPECT_EQ(worker.getAddress(), "Example address");
+//   EXPECT_EQ(worker.getJobTitle(), "Example job title");
+//   EXPECT_EQ(worker.getGender(), Gender::Male);
+//   EXPECT_EQ(worker.getPension(), 1000.0);
+//   EXPECT_EQ(worker.getSalaryPerHour(), 25.0);
+  
+// }
+
+
 #if 0
-
-Worker createDefaultWorker()
-{
-  std::string name = "name example";
-  std::string surname = "surname example";
-  unsigned long int idNumber = 12345678901;
-  std::string address = "address example";
-  std::string jobTitle = "job title example";
-  Gender gender = Gender::Male;
-
-  return Worker(name, surname, idNumber, address, jobTitle, gender);
-}
-
-Worker createDefaultWorker2()
-{
-  std::string name = "name example2";
-  std::string surname = "surname example2";
-  unsigned long int idNumber = 2137;
-  std::string address = "address example2";
-  std::string jobTitle = "job title example2";
-  Gender gender = Gender::Female;
-
-  return Worker(name, surname, idNumber, address, jobTitle, gender);
-}
-
-// Worker Tests
-TEST(WorkerTest, ConstructorInitialization)
-{
-
-  Worker w1 = createDefaultWorker();
-
-  EXPECT_EQ(w1.getName(), "name example");
-  EXPECT_EQ(w1.getSurname(), "surname example");
-  EXPECT_EQ(w1.getIdNumber(), 12345678901);
-  EXPECT_EQ(w1.getAddress(), "address example");
-  EXPECT_EQ(w1.getJobTitle(), "job title example");
-  EXPECT_EQ(w1.getGender(), Gender::Male);
-  EXPECT_TRUE(w1.getCard() != nullptr);
-}
-
-TEST(WorkerTest, PrintWorkerData)
-{
-  Worker w1 = createDefaultWorker();
-
-  std::stringstream output;
-  std::streambuf *oldStdout = std::cout.rdbuf(output.rdbuf());
-
-  w1.printWorkerData();
-
-  std::cout.rdbuf(oldStdout);
-
-  std::string expectedOutput =
-      "Worker informations\n\n"
-      "Name: name example\n"
-      "Surname: surname example\n"
-      "Id number: 12345678901\n"
-      "Address: address example\n"
-      "Job title: job title example\n"
-      "Gender: Male\n";
-
-  EXPECT_EQ(output.str(), expectedOutput);
-}
-
-TEST(WorkerTest, SetterMethods)
-{
-
-  Worker w1 = createDefaultWorker();
-
-  w1.setName("New name");
-  w1.setSurname("New surname");
-  w1.setIdNumber(12345);
-  w1.setAddress("New address");
-  w1.setJobTitle("New job title");
-  w1.setGender(Gender::Female);
-
-  EXPECT_EQ(w1.getName(), "New name");
-  EXPECT_EQ(w1.getSurname(), "New surname");
-  EXPECT_EQ(w1.getIdNumber(), 12345);
-  EXPECT_EQ(w1.getAddress(), "New address");
-  EXPECT_EQ(w1.getJobTitle(), "New job title");
-  EXPECT_EQ(w1.getGender(), Gender::Female);
-  EXPECT_TRUE(w1.getCard() != nullptr);
-}
 // Card tests
 TEST(CardTest, InitialValues)
 {
