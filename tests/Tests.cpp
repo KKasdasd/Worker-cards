@@ -32,6 +32,27 @@ TEST_F(WorkerTest, ConstructorAndGetters)
   EXPECT_EQ(worker.getSalaryPerHour(), 25.0);
 }
 
+TEST_F(WorkerTest, Setters)
+{
+  worker.setName("New name");
+  worker.setSurname("New surname");
+  worker.setIdNumber(123);
+  worker.setAddress("New address");
+  worker.setJobTitle("New job title");
+  worker.setGender(Gender::Female);
+  worker.setPension(500.0);
+  worker.setSalaryPerHour(15.0);
+
+  EXPECT_EQ(worker.getName(), "New name");
+  EXPECT_EQ(worker.getSurname(), "New surname");
+  EXPECT_EQ(worker.getIdNumber(), 123);
+  EXPECT_EQ(worker.getAddress(), "New address");
+  EXPECT_EQ(worker.getJobTitle(), "New job title");
+  EXPECT_EQ(worker.getGender(), Gender::Female);
+  EXPECT_EQ(worker.getPension(), 500.0);
+  EXPECT_EQ(worker.getSalaryPerHour(), 15.0);
+}
+
 
 
 
