@@ -3,36 +3,36 @@
 #include "../src/Card.hpp"
 #include "../src/System.hpp"
 
-class WorkerTest : ::testing::Test
+class WorkerTest : public ::testing::Test
 {
 protected:
   Worker worker;
+
 public:
-  void setUp() 
-  {
-    worker = Worker("Example name",
-                    "Example surname",
-                    12345678901,
-                    "Example address",
-                    "Example job title",
-                    Gender::Male,
-                    1000.0,
-                    25.0);
-  }
+  WorkerTest() : worker("Example name",
+                        "Example surname",
+                        12345678901,
+                        "Example address",
+                        "Example job title",
+                        Gender::Male,
+                        1000.0,
+                        25.0){}
+  
 };
 
-// TEST_F(WorkerTest, ConstructorAndGetters)
-// {
-//   EXPECT_EQ(worker.getName(), "Example name");
-//   EXPECT_EQ(worker.getSurname(), "Example surname");
-//   EXPECT_EQ(worker.getIdNumber(), 11345678901);
-//   EXPECT_EQ(worker.getAddress(), "Example address");
-//   EXPECT_EQ(worker.getJobTitle(), "Example job title");
-//   EXPECT_EQ(worker.getGender(), Gender::Male);
-//   EXPECT_EQ(worker.getPension(), 1000.0);
-//   EXPECT_EQ(worker.getSalaryPerHour(), 25.0);
-  
-// }
+TEST_F(WorkerTest, ConstructorAndGetters)
+{
+  EXPECT_EQ(worker.getName(), "Example name");
+  EXPECT_EQ(worker.getSurname(), "Example surname");
+  EXPECT_EQ(worker.getIdNumber(), 12345678901);
+  EXPECT_EQ(worker.getAddress(), "Example address");
+  EXPECT_EQ(worker.getJobTitle(), "Example job title");
+  EXPECT_EQ(worker.getGender(), Gender::Male);
+  EXPECT_EQ(worker.getPension(), 1000.0);
+  EXPECT_EQ(worker.getSalaryPerHour(), 25.0);
+}
+
+
 
 
 #if 0
