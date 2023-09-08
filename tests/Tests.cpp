@@ -114,7 +114,6 @@ TEST_F(WorkerTest, PrintWorkerData)
       "Address: Example address\n"
       "Job title: Example job title\n"
       "Gender: Male\n"
-      "Pension: 1000\n"
       "Salary per hour: 25\n";
 
   EXPECT_EQ(outputBuffer.str(), expectedOutput);
