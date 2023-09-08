@@ -33,6 +33,7 @@ public:
     
 
     // Methods for tests issue
+    void resetIdCardCounter();
 };
 
 #endif

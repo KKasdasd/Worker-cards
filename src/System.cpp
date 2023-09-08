@@ -164,3 +164,7 @@ unsigned long int System::generateCardId()
 }
 
 // methods for tests
+void System::resetIdCardCounter()
+{
+    cardIdCounter_ = 1;
+}
