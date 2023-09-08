@@ -28,6 +28,12 @@ public:
   }
 };
 
+class CardTest : public ::testing::Test
+{
+protected:
+  Card card;
+};
+
 
 TEST_F(WorkerTest, ConstructorAndGetters)
 {
@@ -96,43 +102,27 @@ TEST_F(WorkerTest, PrintWorkerData)
   EXPECT_EQ(outputBuffer.str(), expectedOutput);
 }
 
-#if 0
+
 // Card tests
-TEST(CardTest, InitialValues)
-{
-  Card::resetCardIdTracker();
-  Card card;
-  Card card2;
 
-  EXPECT_EQ(card.getCardId(), 1);
-  EXPECT_EQ(card2.getCardId(), 2);
+TEST_F(CardTest, DefaultConstructor)
+{
+  EXPECT_NE(card.getCardId(), 0);
 }
 
-TEST(CardTest, clockInOut)
+TEST_F(CardTest, ClockInAndOut)
 {
+  std::time_t startTime = card.clockIn();
+  std::time_t endTime = card.clockOut();
+
+  EXPECT_NE(startTime, static_cast<std::time_t>(-1));
+  EXPECT_NE(endTime, static_cast<std::time_t>(-1));
+
+  EXPECT_LE(startTime, endTime);
 }
 
-TEST(CardTest, ClockInOutCustomTime)
-{
-  Card card;
-  std::tm customTime{};
-  customTime.tm_year = 123;
-  customTime.tm_year = 0;
-  customTime.tm_mday = 1;
-  customTime.tm_hour = 12;
-  customTime.tm_min = 30;
-  customTime.tm_sec = 0;
 
-  std::time_t customClockTime = std::mktime(&customTime);
-}
-
-TEST(WorkerCardInteractionTest, WorkerCreatesCard)
-{
-  Worker w1 = createDefaultWorker();
-
-  EXPECT_TRUE(w1.getCard() != nullptr);
-}
-
+#if 0
 // System tests
 TEST(SystemTest, AddRemoveWorker)
 {
