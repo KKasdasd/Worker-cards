@@ -143,6 +143,7 @@ TEST_F(SystemTest, AddWorkerGetWorkersGetIdCard)
   std::vector<Worker> workers = system.getWorkers();
   EXPECT_EQ(workers.size(), 3);
   EXPECT_NE(w1.getName(), w3.getName());
+  EXPECT_FALSE(system.getClockTimes().empty());
 
   EXPECT_EQ(w1.getCard()->getCardId(), 1);
   EXPECT_EQ(w2.getCard()->getCardId(), 2);
@@ -158,6 +159,7 @@ TEST_F(SystemTest, RemoveWorkerFindWorker)
 
   system.removeWorker(w1.getIdNumber());
   EXPECT_EQ(system.getWorkers().size(), 0);
+  EXPECT_TRUE(system.getClockTimes().empty());
 }
 
 TEST_F(SystemTest, SortBySurname)
@@ -168,8 +170,8 @@ TEST_F(SystemTest, SortBySurname)
   std::vector<Worker> workers;
   system.addWorker(w1);
   system.addWorker(w2);
-  
+
   system.SortBySurname();
-  for(size_t i = 1; i < system.getWorkers().size(); i++)
+  for (size_t i = 1; i < system.getWorkers().size(); i++)
     EXPECT_LE(workers[i - 1].getSurname(), workers[i].getSurname());
 }

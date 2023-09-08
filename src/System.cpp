@@ -25,6 +25,7 @@ void System::addWorker(Worker &worker)
         }
     }
     workers_.push_back(worker);
+    clockTimes_.emplace(worker.getIdNumber(), std::make_pair(0, 0));
 }
 bool System::removeWorker(unsigned long int idNumber)
 {
@@ -34,6 +35,7 @@ bool System::removeWorker(unsigned long int idNumber)
 
     if (it != workers_.end())
     {
+        clockTimes_.erase(idNumber);
         workers_.erase(it, workers_.end());
         std::cout << "Worker: " << it->getName() << " " << it->getSurname()
                   << " id: " << it->getIdNumber() << " successfully removed";
@@ -46,6 +48,10 @@ bool System::removeWorker(unsigned long int idNumber)
 std::vector<Worker> System::getWorkers() const
 {
     return workers_;
+}
+std::multimap<unsigned long int, std::pair<std::time_t, std::time_t>> System::getClockTimes() const 
+{
+    return clockTimes_;
 }
 
 const Worker *System::findWorker(unsigned long int idNumber) const

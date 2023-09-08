@@ -22,6 +22,7 @@ public:
     void addWorker(Worker &worker);
     bool removeWorker(unsigned long int idNumber);
     std::vector<Worker> getWorkers() const;
+    std::multimap<unsigned long int, std::pair<std::time_t, std::time_t>> getClockTimes() const;
     const Worker* findWorker(unsigned long int idNumber) const;
     void SortBySurname();
     void generateWorkersReport(const std::string &filename) const;
@@ -30,6 +31,7 @@ public:
     void clockIn(const Worker &worker);
     void clockOut(const Worker &worker);
     static unsigned long int generateCardId();
+    
     
 
     // Methods for tests issue
