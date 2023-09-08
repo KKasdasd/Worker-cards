@@ -86,6 +86,8 @@ void System::generateWorkersReport(const std::string &filename) const
         reportFile << "Address: " << worker.getAddress() << std::endl;
         reportFile << "Job Title: " << worker.getJobTitle() << std::endl;
         reportFile << "Gender: " << worker.getGenderAsString() << std::endl;
+        reportFile << "Pension: " << worker.getPension() << std::endl;
+        reportFile << "Salary per hour: " << worker.getSalaryPerHour() << std::endl;
         reportFile << "------------------" << std::endl;
     }
 
