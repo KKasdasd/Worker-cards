@@ -16,7 +16,6 @@ public:
                         "Example address",
                         "Example job title",
                         Gender::Male,
-                        1000.0,
                         25.0) {}
   std::string getPrintedOutput() const
   {
@@ -46,7 +45,7 @@ public:
                         double hourlyRate,
                         double hoursWorked)
 {
-  Worker worker(name, surname, id, "address", "job title", Gender::Other, 100.0, hourlyRate);
+  Worker worker(name, surname, id, "address", "job title", Gender::Other, hourlyRate);
   system.addWorker(worker);
 
   for(int i = 0; i < hoursWorked; i++) 
@@ -65,7 +64,6 @@ TEST_F(WorkerTest, ConstructorAndGetters)
   EXPECT_EQ(worker.getAddress(), "Example address");
   EXPECT_EQ(worker.getJobTitle(), "Example job title");
   EXPECT_EQ(worker.getGender(), Gender::Male);
-  EXPECT_EQ(worker.getPension(), 1000.0);
   EXPECT_EQ(worker.getSalaryPerHour(), 25.0);
 }
 
@@ -77,7 +75,6 @@ TEST_F(WorkerTest, Setters)
   worker.setAddress("New address");
   worker.setJobTitle("New job title");
   worker.setGender(Gender::Female);
-  worker.setPension(500.0);
   worker.setSalaryPerHour(15.0);
 
   EXPECT_EQ(worker.getName(), "New name");
@@ -86,7 +83,6 @@ TEST_F(WorkerTest, Setters)
   EXPECT_EQ(worker.getAddress(), "New address");
   EXPECT_EQ(worker.getJobTitle(), "New job title");
   EXPECT_EQ(worker.getGender(), Gender::Female);
-  EXPECT_EQ(worker.getPension(), 500.0);
   EXPECT_EQ(worker.getSalaryPerHour(), 15.0);
 }
 
@@ -146,10 +142,10 @@ TEST_F(SystemTest, AddWorkerGetWorkersGetIdCard)
 {
   system.resetIdCardCounter();
 
-  Worker w1("name", "surname", 123, "address", "job title", Gender::Other, 100.0, 15.0);
+  Worker w1("name", "surname", 123, "address", "job title", Gender::Other, 15.0);
 
-  Worker w2("name2", "surname2", 123, "address2", "job title2", Gender::Female, 159.0, 10.0);
-  Worker w3("name", "surname", 123456, "address", "job title", Gender::Other, 100.0, 15.0);
+  Worker w2("name2", "surname2", 123, "address2", "job title2", Gender::Female, 10.0);
+  Worker w3("name", "surname", 123456, "address", "job title", Gender::Other, 15.0);
 
   system.addWorker(w1);
   system.addWorker(w2);
@@ -167,7 +163,7 @@ TEST_F(SystemTest, AddWorkerGetWorkersGetIdCard)
 
 TEST_F(SystemTest, RemoveWorkerFindWorker)
 {
-  Worker w1("name", "surname", 123, "address", "job title", Gender::Other, 100.0, 15.0);
+  Worker w1("name", "surname", 123, "address", "job title", Gender::Other, 15.0);
   system.addWorker(w1);
   const Worker *w2 = system.findWorker(w1.getIdNumber());
   EXPECT_EQ(w1.getIdNumber(), w2->getIdNumber());
@@ -179,8 +175,8 @@ TEST_F(SystemTest, RemoveWorkerFindWorker)
 
 TEST_F(SystemTest, SortBySurname)
 {
-  Worker w1("name", "Smith", 123, "address", "job title", Gender::Other, 100.0, 15.0);
-  Worker w2("name", "Johnson", 123, "address", "job title", Gender::Other, 100.0, 15.0);
+  Worker w1("name", "Smith", 123, "address", "job title", Gender::Other, 15.0);
+  Worker w2("name", "Johnson", 123, "address", "job title", Gender::Other, 15.0);
 
   std::vector<Worker> workers;
   system.addWorker(w1);

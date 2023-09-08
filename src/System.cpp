@@ -92,7 +92,6 @@ void System::generateWorkersReport(const std::string &filename) const
         reportFile << "Address: " << worker.getAddress() << std::endl;
         reportFile << "Job Title: " << worker.getJobTitle() << std::endl;
         reportFile << "Gender: " << worker.getGenderAsString() << std::endl;
-        reportFile << "Pension: " << worker.getPension() << std::endl;
         reportFile << "Salary per hour: " << worker.getSalaryPerHour() << std::endl;
         reportFile << "------------------" << std::endl;
     }
@@ -193,6 +192,7 @@ void System::calculateMonthlySalaries()
         monthlySalaryReport_.insert(
             std::make_pair(monthAndYear, std::make_pair(
                                              worker, monthlySalary)));
+
     }
 }
 std::multimap<std::string, std::pair<Worker, double>> System::getMonthlySalaryReport() const

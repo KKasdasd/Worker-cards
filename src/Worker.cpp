@@ -7,7 +7,6 @@ Worker::Worker(
     const std::string &address,
     const std::string &jobTitle,
     Gender gender,
-    double pension,
     double salaryPerHour)
     : name_(name),
       surname_(surname),
@@ -16,7 +15,6 @@ Worker::Worker(
       jobTitle_(jobTitle),
       gender_(gender),
       cardPtr_(std::make_shared<Card>()),
-      pension_(pension),
       salaryPerHour_(salaryPerHour) {}
 
 // getters
@@ -48,10 +46,7 @@ std::shared_ptr<Card> Worker::getCard() const
 {
     return cardPtr_;
 }
-double Worker::getPension() const
-{
-    return pension_;
-}
+
 double Worker::getSalaryPerHour() const
 {
     return salaryPerHour_;
@@ -82,10 +77,7 @@ void Worker::setGender(const Gender &gender)
 {
     gender_ = gender;
 }
-void Worker::setPension(double pension)
-{
-    pension_ = pension;
-}
+
 void Worker::setSalaryPerHour(double salaryPerHour)
 {
     salaryPerHour_ = salaryPerHour;
@@ -101,7 +93,6 @@ void Worker::printWorkerData() const
     std::cout << "Address: " << getAddress() << std::endl;
     std::cout << "Job title: " << getJobTitle() << std::endl;
     std::cout << "Gender: " << getGenderAsString() << std::endl;
-    std::cout << "Pension: " << getPension() << std::endl;
     std::cout << "Salary per hour: " << getSalaryPerHour() << std::endl;
 }
 

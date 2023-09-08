@@ -36,7 +36,6 @@ public:
         const std::string &address = 0,
         const std::string &jobTitle = 0,
         Gender gender = Gender::Other,
-        double pension = 0,
         double salaryPerHour_ = 0);
 
 
@@ -51,7 +50,6 @@ public:
     std::string getJobTitle() const;
     Gender getGender() const;
     std::shared_ptr<Card> getCard() const;
-    double getPension() const;
     double getSalaryPerHour() const;
 
     // setters
@@ -61,7 +59,6 @@ public:
     void setAddress(const std::string &address);
     void setJobTitle(const std::string &state);
     void setGender(const Gender &gender);
-    void setPension(double pension);
     void setSalaryPerHour(double salaryPerHour);
 
     // Methods
