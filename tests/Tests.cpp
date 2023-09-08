@@ -7,6 +7,7 @@ class WorkerTest : public ::testing::Test
 {
 protected:
   Worker worker;
+  std::ostringstream outputBuffer;
 
 public:
   WorkerTest() : worker("Example name",
@@ -16,9 +17,17 @@ public:
                         "Example job title",
                         Gender::Male,
                         1000.0,
-                        25.0){}
-  
+                        25.0) {}
+  std::string getPrintedOutput() const
+  {
+    return outputBuffer.str();
+  }
+  void resetOutputBuffer()
+  {
+    outputBuffer.str("");
+  }
 };
+
 
 TEST_F(WorkerTest, ConstructorAndGetters)
 {
@@ -53,8 +62,39 @@ TEST_F(WorkerTest, Setters)
   EXPECT_EQ(worker.getSalaryPerHour(), 15.0);
 }
 
+TEST_F(WorkerTest, GetGenderAsString)
+{
+  EXPECT_EQ(worker.getGenderAsString(), "Male");
 
+  worker.setGender(Gender::Female);
+  EXPECT_EQ(worker.getGenderAsString(), "Female");
 
+  worker.setGender(Gender::Other);
+  EXPECT_EQ(worker.getGenderAsString(), "Other");
+}
+
+TEST_F(WorkerTest, PrintWorkerData)
+{
+  std::streambuf* oldCoutBuffer = std::cout.rdbuf();
+  std::cout.rdbuf(outputBuffer.rdbuf());
+
+  worker.printWorkerData();
+
+  std::cout.rdbuf(oldCoutBuffer);
+
+  std::string expectedOutput =
+    "Worker informations\n\n"
+    "Name: Example name\n"
+    "Surname: Example surname\n"
+    "Id number: 12345678901\n"
+    "Address: Example address\n"
+    "Job title: Example job title\n"
+    "Gender: Male\n"
+    "Pension: 1000\n"
+    "Salary per hour: 25\n";
+
+  EXPECT_EQ(outputBuffer.str(), expectedOutput);
+}
 
 #if 0
 // Card tests

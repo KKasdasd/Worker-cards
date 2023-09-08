@@ -101,6 +101,8 @@ void Worker::printWorkerData() const
     std::cout << "Address: " << getAddress() << std::endl;
     std::cout << "Job title: " << getJobTitle() << std::endl;
     std::cout << "Gender: " << getGenderAsString() << std::endl;
+    std::cout << "Pension: " << getPension() << std::endl;
+    std::cout << "Salary per hour: " << getSalaryPerHour() << std::endl;
 }
 
 std::string Worker::getGenderAsString() const
