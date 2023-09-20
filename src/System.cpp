@@ -77,11 +77,11 @@ void System::generateWorkersReport(const std::string &filename) const
 
     if (reportFile)
     {
-        std::cerr << "Failed to open the raport file" << std::endl;
+        std::cerr << "Failed to open the report file" << std::endl;
         return;
     }
 
-    reportFile << "Employee Raport" << std::endl;
+    reportFile << "Employee Report" << std::endl;
     reportFile << "------------------\n\n";
 
     for (const auto &worker : workers_)
@@ -105,11 +105,11 @@ void System::generateArrivalDepartureReport(const std::string filename) const
 
     if (!reportFile)
     {
-        std::cerr << "Failed to open the raport file" << std::endl;
+        std::cerr << "Failed to open the report file" << std::endl;
         return;
     }
 
-    reportFile << "Arrival and Departure Raport\n\n";
+    reportFile << "Arrival and Departure Report\n\n";
 
     for (const auto &worker : workers_)
     {
@@ -200,7 +200,7 @@ std::multimap<std::string, std::pair<Worker, double>> System::getMonthlySalaryRe
     return monthlySalaryReport_;
 }
 
-void System::generateSalaryRaport(const std::string &filename) const
+void System::generateSalaryReport(const std::string &filename) const
 {
     std::ofstream reportFile(filename);
 

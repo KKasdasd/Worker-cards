@@ -1,5 +1,16 @@
 #include "Worker.hpp"
 
+std::ostream& operator<<(std::ostream &os, const Worker worker)
+{
+    os << "Name: " << worker.getName() << std::endl;
+    os << "Surname: " << worker.getSurname() << std::endl;
+    os << "Id number: " << worker.getIdNumber() << std::endl;
+    os << "Job Title: " << worker.getJobTitle() << std::endl;
+    os << "Gender: " << worker.getGender() << std::endl;
+    os << "Salary per Hour: " << worker.getSalaryPerHour() << std::endl;
+    return os;
+}
+
 Worker::Worker(
     const std::string &name,
     const std::string &surname,

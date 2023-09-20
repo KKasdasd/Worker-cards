@@ -38,7 +38,7 @@ public:
     std::string getCurrentMonthAndYear() const;
     void calculateMonthlySalaries();
     std::multimap<std::string, std::pair<Worker, double>> getMonthlySalaryReport() const;
-    void generateSalaryRaport(const std::string &filename) const;
+    void generateSalaryReport(const std::string &filename) const;
     
     
 

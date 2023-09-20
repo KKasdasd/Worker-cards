@@ -27,6 +27,7 @@ protected:
     double salaryPerHour_;
 
 public:
+    friend std::ostream& operator<<(std::ostream& os, const Worker& worker);
     Worker() = default;
     Worker(
         const std::string &name = "",
