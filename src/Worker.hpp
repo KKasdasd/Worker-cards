@@ -28,7 +28,6 @@ protected:
 
 public:
     friend std::ostream& operator<<(std::ostream& os, const Worker& worker);
-    Worker() = default;
     Worker(
         const std::string &name = "",
         const std::string &surname = "",

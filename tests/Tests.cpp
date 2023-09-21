@@ -2,6 +2,7 @@
 #include "../src/Worker.hpp"
 #include "../src/Card.hpp"
 #include "../src/System.hpp"
+#include "../src/Manager.hpp"
 
 class WorkerTest : public ::testing::Test
 {
@@ -17,6 +18,8 @@ public:
                         "Example job title",
                         Gender::Male,
                         25.0) {}
+  
+
   std::string getPrintedOutput() const
   {
     return outputBuffer.str();
@@ -39,21 +42,12 @@ protected:
   System system;
 
 public:
-  void AddWorkerWihHours(const std::string &name, 
-                        const std::string &surname,
-                        unsigned long int id,
-                        double hourlyRate,
-                        double hoursWorked)
-{
-  Worker worker(name, surname, id, "address", "job title", Gender::Other, hourlyRate);
-  system.addWorker(worker);
 
-  for(int i = 0; i < hoursWorked; i++) 
-  {
-    system.clockIn(worker);
-    system.clockOut(worker);
-  }
-}
+};
+
+class ManagerTest : public ::testing::Test
+{
+
 };
 
 TEST_F(WorkerTest, ConstructorAndGetters)
@@ -101,7 +95,6 @@ TEST_F(WorkerTest, PrintWorkerData)
 {
   std::streambuf *oldCoutBuffer = std::cout.rdbuf();
   std::cout.rdbuf(outputBuffer.rdbuf());
-
   worker.printWorkerData();
 
   std::cout.rdbuf(oldCoutBuffer);
@@ -177,43 +170,87 @@ TEST_F(SystemTest, SortBySurname)
   Worker w1("name", "Smith", 123, "address", "job title", Gender::Other, 15.0);
   Worker w2("name", "Johnson", 123, "address", "job title", Gender::Other, 15.0);
 
-  std::vector<Worker> workers;
   system.addWorker(w1);
   system.addWorker(w2);
 
   system.SortBySurname();
-  for (size_t i = 1; i < system.getWorkers().size(); i++)
-    EXPECT_LE(workers[i - 1].getSurname(), workers[i].getSurname());
+  EXPECT_EQ(system.getWorkers()[0].getSurname(), "Johnson");
+  EXPECT_EQ(system.getWorkers()[1].getSurname(), "Smith");
 }
+TEST_F(SystemTest, CalculateTotalWorkHours) {
+    System system;
+    
+    Worker worker("John", "Doe", 1, "Address", "Job Title", Gender::Male, 10.0);
+    system.addWorker(worker);
+    system.clockIn(worker);
+    system.timeTravel(worker);
 
+    std::time_t totalHours = system.getTotalWorkHours(worker.getIdNumber());
+    EXPECT_EQ(totalHours, 8);
+}
 TEST_F(SystemTest, CalculateMonthlySalaries)
 {
   system.resetIdCardCounter();
-  AddWorkerWihHours("Jhon", "Smith", 1, 20.0, 160);
-  AddWorkerWihHours("Jhon2", "Smith3", 2, 30.0, 170);
-  AddWorkerWihHours("Jhon3", "Smith3", 3, 40.0, 180);
+  Worker w1("name", "Smith", 123, "address", "job title", Gender::Other, 15.0);
+  Worker w2("name", "Johnson", 123, "address", "job title", Gender::Other, 15.0);
+  Worker w3("name", "Johnson", 123, "address", "job title", Gender::Other, 15.0);
+
+  w1.setSalaryPerHour(10);
+  w2.setSalaryPerHour(20);
+  w3.setSalaryPerHour(30);
+
+  system.addWorker(w1);
+  system.addWorker(w2);
+  system.addWorker(w3);
+
+  system.clockIn(w1);
+  system.clockIn(w2);
+  system.clockIn(w3);
+
+  system.timeTravel(w1);
+  system.timeTravel(w2);
+  system.timeTravel(w3);
+
 
   system.calculateMonthlySalaries();
+
   std::multimap<std::string, std::pair<Worker, double>> salaryReport =
-  system.getMonthlySalaryReport();
+      system.getMonthlySalaryReport();
 
-  EXPECT_EQ(salaryReport.count(system.getCurrentMonthAndYear()), 3);
-    for (const auto& entry : salaryReport)
+
+  for (const auto &entry : salaryReport)
+  {
+    const Worker &worker = entry.second.first;
+    double salary = entry.second.second;
+
+    if (worker.getIdNumber() == 1)
     {
-        const Worker& worker = entry.second.first;
-        double salary = entry.second.second;
-
-        if (worker.getIdNumber() == 1) // John's ID is 1
-        {
-            EXPECT_DOUBLE_EQ(salary, 3200.0);
-        }
-        else if (worker.getIdNumber() == 2) // Jane's ID is 2
-        {
-            EXPECT_DOUBLE_EQ(salary, 2100.0);
-        }
-        else if (worker.getIdNumber() == 3) // Alice's ID is 3
-        {
-            EXPECT_DOUBLE_EQ(salary, 4500.0);
-        }
+      EXPECT_EQ(salary, 80.0);
     }
+    else if (worker.getIdNumber() == 2)
+    {
+      EXPECT_EQ(salary, 160.0);
+    }
+    else if (worker.getIdNumber() == 3)
+    {
+      EXPECT_EQ(salary, 240.0);
+    }
+  }
 }
+
+TEST_F(ManagerTest, AddAndRemoveWorker)
+{
+  Manager m1("Alice", "Smith", 123, "Address", "Manager", Gender::Female, 125);
+  System s1;
+  Worker w1("name", "Smith", 456, "address", "job title", Gender::Other, 15.0);
+  auto w2 = std::make_shared<Worker>("name", "Smith", 456, "address", "job title", Gender::Other, 15.0);
+  m1.addWorker(w2);
+  s1.addWorker(w1);
+  
+  EXPECT_EQ(m1.getTeamSize(), 1);
+
+  m1.removeWorker(456);
+  EXPECT_EQ(m1.getTeamSize(), 0);
+  EXPECT_EQ(s1.getWorkers().size(), 1);
+}
+

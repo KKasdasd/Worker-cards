@@ -18,6 +18,9 @@ public:
     // Methods
     std::time_t clockIn() const;
     std::time_t clockOut() const;
+
+    //test issue
+    std::time_t timeTravel() const;
 };
 
 #endif

@@ -1,6 +1,4 @@
 #include "System.hpp"
-#include <algorithm>
-#include <fstream>
 
 unsigned long int System::cardIdCounter_ = 1;
 
@@ -75,7 +73,7 @@ void System::generateWorkersReport(const std::string &filename) const
 {
     std::ofstream reportFile(filename);
 
-    if (reportFile)
+    if (!reportFile)
     {
         std::cerr << "Failed to open the report file" << std::endl;
         return;
@@ -158,6 +156,15 @@ void System::clockIn(const Worker &worker)
 void System::clockOut(const Worker &worker)
 {
     std::time_t currentTime = worker.getCard()->clockOut();
+    auto it = clockTimes_.find(worker.getIdNumber());
+    if (it != clockTimes_.end())
+        it->second.second = currentTime;
+    else
+        std::cerr << "Worker not found" << std::endl;
+}
+void System::timeTravel(const Worker &worker)
+{
+        std::time_t currentTime = worker.getCard()->timeTravel();
     auto it = clockTimes_.find(worker.getIdNumber());
     if (it != clockTimes_.end())
         it->second.second = currentTime;

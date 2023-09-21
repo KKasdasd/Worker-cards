@@ -22,6 +22,11 @@ std::time_t Card::clockOut() const
     return currentTime;
 }
 
-
-
 // Methods for tests issue
+std::time_t Card::timeTravel() const
+{
+    return time(nullptr) + 8 *3600;
+}
+
+
+

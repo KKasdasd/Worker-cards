@@ -7,6 +7,9 @@
 #include <ctime>
 #include <chrono>
 #include <iomanip>
+#include <algorithm>
+#include <fstream>
+#include <sstream>
 #include "Worker.hpp"
 #include "Card.hpp"
 
@@ -44,6 +47,8 @@ public:
 
     // Methods for tests issue
     void resetIdCardCounter();
+    void timeTravel(const Worker &worker);
+
 };
 
 #endif

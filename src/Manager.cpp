@@ -11,12 +11,12 @@ Manager::Manager(
     double salaryPerHour)
     : Worker(name, surname, id_number, address, jobTitle, gender, salaryPerHour) {}
 
-void Manager::addWorker(Worker &worker)
+void Manager::addWorker(std::shared_ptr<Worker> worker)
 {
-    team_.push_back(&worker);
+    team_.push_back(worker);
 }
 
-std::vector<Worker *> Manager::getTeam() const
+std::vector<std::shared_ptr<Worker>> Manager::getTeam() const
 {
     return team_;
 }
@@ -27,15 +27,15 @@ void Manager::showWorkers() const
 }
 bool Manager::removeWorker(unsigned long int idNumber)
 {
-    auto it = std::find_if(team_.begin(), team_.end(),
-                           [&](const Worker *workerPtr)
+    auto it = std::remove_if(team_.begin(), team_.end(),
+                           [&](const std::shared_ptr<Worker>& workerPtr)
                            { return workerPtr->getIdNumber() == idNumber; });
     if (it != team_.end())
     {
         team_.erase(it, team_.end());
         std::cout << "Worker: " << (*it)->getName() << " " << (*it)->getSurname()
                   << "id: " << (*it)->getIdNumber() << " successfully removed from team";
-        team_.erase(it);
+        team_.erase(it, team_.end());
         return true;
     }
     std::cout << "Could not find worker for given parameter: " << idNumber;
