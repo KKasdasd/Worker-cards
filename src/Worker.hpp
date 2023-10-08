@@ -32,8 +32,8 @@ public:
         const std::string &name = "",
         const std::string &surname = "",
         unsigned long int id_number = 0,
-        const std::string &address = 0,
-        const std::string &jobTitle = 0,
+        const std::string &address = "",
+        const std::string &jobTitle = "",
         Gender gender = Gender::Other,
         double salaryPerHour_ = 0);
 

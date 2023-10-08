@@ -11,30 +11,25 @@ Manager::Manager(
     double salaryPerHour)
     : Worker(name, surname, id_number, address, jobTitle, gender, salaryPerHour) {}
 
-void Manager::addWorker(std::shared_ptr<Worker> worker)
+void Manager::addWorker(Worker worker)
 {
     team_.push_back(worker);
 }
 
-std::vector<std::shared_ptr<Worker>> Manager::getTeam() const
+std::vector<Worker> Manager::getTeam() const
 {
     return team_;
-}
-void Manager::showWorkers() const
-{
-    for (const auto &worker : team_)
-        std::cout << worker << std::endl;
 }
 bool Manager::removeWorker(unsigned long int idNumber)
 {
     auto it = std::remove_if(team_.begin(), team_.end(),
-                           [&](const std::shared_ptr<Worker>& workerPtr)
-                           { return workerPtr->getIdNumber() == idNumber; });
+                           [&](const  Worker &w)
+                           { return w.getIdNumber() == idNumber; });
     if (it != team_.end())
     {
         team_.erase(it, team_.end());
-        std::cout << "Worker: " << (*it)->getName() << " " << (*it)->getSurname()
-                  << "id: " << (*it)->getIdNumber() << " successfully removed from team";
+        std::cout << "Worker: " << it->getName() << " " << it->getSurname()
+                  << "id: " << it->getIdNumber() << " successfully removed from team";
         team_.erase(it, team_.end());
         return true;
     }
@@ -47,11 +42,3 @@ unsigned int Manager::getTeamSize() const
     return team_.size();
 }
 
-void Manager::updateSalary(unsigned long int idNumber, double newSalary)
-{
-    for (auto workerPtr : team_)
-    {
-        if (workerPtr->getIdNumber() == idNumber)
-            workerPtr->setSalaryPerHour(newSalary);
-    }
-}

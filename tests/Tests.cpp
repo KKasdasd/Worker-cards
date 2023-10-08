@@ -241,16 +241,13 @@ TEST_F(SystemTest, CalculateMonthlySalaries)
 TEST_F(ManagerTest, AddAndRemoveWorker)
 {
   Manager m1("Alice", "Smith", 123, "Address", "Manager", Gender::Female, 125);
-  System s1;
   Worker w1("name", "Smith", 456, "address", "job title", Gender::Other, 15.0);
-  auto w2 = std::make_shared<Worker>("name", "Smith", 456, "address", "job title", Gender::Other, 15.0);
-  m1.addWorker(w2);
-  s1.addWorker(w1);
+  m1.addWorker(w1);
   
   EXPECT_EQ(m1.getTeamSize(), 1);
 
   m1.removeWorker(456);
   EXPECT_EQ(m1.getTeamSize(), 0);
-  EXPECT_EQ(s1.getWorkers().size(), 1);
 }
+
 

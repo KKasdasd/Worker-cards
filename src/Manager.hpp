@@ -5,7 +5,7 @@
 class Manager : public Worker
 {
 private:
-    std::vector<std::shared_ptr<Worker>> team_;
+    std::vector<Worker> team_;
 
 public:
     Manager(
@@ -17,12 +17,10 @@ public:
         Gender gender = Gender::Other,
         double salaryPerHour = 0);
 
-    void addWorker(std::shared_ptr<Worker> worker);
-    std::vector<std::shared_ptr<Worker>> getTeam() const;
-    void showWorkers() const;
+    void addWorker(Worker worker);
+    std::vector<Worker> getTeam() const;
     bool removeWorker(unsigned long int idNumber);
     unsigned int getTeamSize() const;
-    void updateSalary(unsigned long int idNumber, double newSalary);
 };
 
 #endif
